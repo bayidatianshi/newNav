@@ -42,6 +42,35 @@
             color: yellow;
         }
 
+        ul.topul li a{
+            line-height: 50px; 
+            padding: 20px 22px;
+            font-size: 15px;
+        }
+
+        li.colorsli a{
+            text-align: center;
+        }
+        ul.colorsul{
+            display:inline-block;
+            white-space:nowrap;
+        }
+        ul.colorsul li{
+            display:inline-block;
+            margin:10px -5px 0px 5px;
+        }
+        ul.colorsul a{
+            width:70px;
+            height:55px;
+            border: solid 1px grey;
+        }
+
+        i.linecons-tag{
+            margin-right: 7px;
+        }
+        i.updownTag{
+            float: right;
+        }
     </style>
 
     <!-- 初始操作(假装已登录测试) -->
@@ -60,8 +89,8 @@
 
             if(logon){
                 userName = "John";
-                collections = ["图书馆","计算机学院","教务管理系统","纪委监察处","组织部"]; //网址数据在website-data.js文件中，只写了几个
-                $("#userNameSpan").html("John");
+                collections = ["图书馆","计算机学院","教务管理系统","纪委监察处","组织部"];
+                $("#userNameSpan").html(userName);
                 $("li.afterLogin").show();
                 $("li.beforeLogin").hide();
 
@@ -100,17 +129,25 @@
                     </a>
                 </div> -->
                 <div class="mobile-menu-toggle visible-xs">
-                    <a href="#" data-toggle="user-info-menu">
+                    <a data-toggle="user-info-menu">
                         <i class="linecons-cog"></i>
                     </a>
-                    <a href="#" data-toggle="mobile-menu">
+                    <a data-toggle="mobile-menu">
                         <i class="fa-bars"></i>
                     </a>
                 </div>
             </header>
-            <ul id="main-menu" class="main-menu">
+            <ul id="main-menu" class="main-menu mobile-is-visible">
+                
                 <li>
-                    <a>
+                    <a href="#推荐" class="smooth">
+                        <i class="linecons-heart"></i>
+                        <span class="title">推荐</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)">
                         <i class="linecons-paper-plane"></i>
                         <span class="title">学校</span>
                     </a>
@@ -159,7 +196,7 @@
                 </li>
 
                 <li>
-                    <a>
+                    <a href="javascript:void(0)">
                         <i class="linecons-graduation-cap"></i>
                         <span class="title">学生</span>
                     </a>
@@ -173,16 +210,16 @@
                 </li>
 
                 <li>
-                    <a href="#推荐页" class="smooth">
-                        <i class="linecons-heart"></i>
-                        <span class="title">推荐页</span>
+                    <a href="#我的收藏" class="smooth">
+                        <i class="linecons-star"></i>
+                        <span class="title">我的收藏</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#我的收藏" class="smooth">
-                        <i class="linecons-star"></i>
-                        <span class="title">我的收藏</span>
+                    <a href="homepage.html">
+                        <i class="linecons-user"></i>
+                        <span class="title">个人主页</span>
                     </a>
                 </li>
 
@@ -208,29 +245,127 @@
                         <i class="fa-bars"></i>
                     </a>
                 </li>
+
                 <li  class="dropdown hover-line">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa-reply-all"></i>
                         <!-- <i class="fa-angle-down" style="margin-left: 3px;"></i> -->
                     </a>
-                    <ul class="dropdown-menu list-unstyled">
+                    <ul class="dropdown-menu list-unstyled topul">
                         <!-- 隐藏/显示英文标签 -->
                         <li>
-                            <a href="#" id = "enLabel" style="height: 50px; padding: 20px 22px;">
+                            <a href="javascript:void(0);" id = "enLabel">
                                 <i class="fa-tags"></i> 英文标签
                             </a>
                         </li>
                         <!-- 隐藏/显示收藏星 -->
                         <li>
-                            <a href="#" id = "collectStar" style="height: 50px; padding: 20px 22px;">
+                            <a href="javascript:void(0);" id = "collectStar">
                                 <i class="fa-star-half-o"></i>  收藏星
                             </a>
                         </li>
                         <!-- 隐藏/显示提示框 -->
                         <li>
-                            <a href="#" id = "opTooltip" style="height: 50px; padding: 20px 22px;">
-                                <i class="fa-bell-o"></i>  提示框(未完成)
+                            <a href="javascript:void(0);" id = "opTooltip">
+                                <i class="fa-bell-o"></i>  提示框
                             </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li  class="dropdown hover-line">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa-paint-brush"></i>
+                    </a>
+                    <ul class="dropdown-menu list-inline list-unstyled">
+
+                        <li class="colorsli">
+                            <a>
+                                <i class="fa-circle-o"></i> Sidebar
+                            </a>
+                            <ul class="colorsul list-inline list-unstyled">
+                                <li>
+                                    <a class="btn" style="background: black;" data-set-skin="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #a8aba2;" data-set-skin="concrete">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background: white;" data-set-skin="white">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #b63131;" data-set-skin="watermelon">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #16a085;" data-set-skin="turquoise">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #3b5998;" data-set-skin="facebook">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #2c3e50;" data-set-skin="navy">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #f5c150;" data-set-skin="lemonade">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background: purple;" data-set-skin="purple">
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="colorsli">
+                            <a>
+                                <i class="fa-circle-o"></i> Topbar
+                            </a>
+                            <ul class="colorsul list-inline list-unstyled">
+                                <li>
+                                    <a class="btn" style="background: black;" data-set-skin-horizontal="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #a8aba2;" data-set-skin-horizontal="concrete">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background: white;" data-set-skin-horizontal="white">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #b63131;" data-set-skin-horizontal="watermelon">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #16a085;" data-set-skin-horizontal="turquoise">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #3b5998;" data-set-skin-horizontal="facebook">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #2c3e50;" data-set-skin-horizontal="navy">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background-color: #f5c150;" data-set-skin-horizontal="lemonade">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="btn" style="background: purple;" data-set-skin-horizontal="purple">
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
@@ -238,34 +373,52 @@
 
                 <!-- 提交添加新网址申请 -->
                 <li class="hover-line">
-                    <a href="" data-toggle="modal" data-target="#addApplyModal">
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#addApplyModal">
                         <i class="fa-edit"></i>
                     </a>
                     <!-- 申请添加新网址模态框（Modal） -->
-                    <div class="modal fade" id="addApplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="addApplyModal" aria-hidden="true" data-backdrop='static' style="display: none;">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">
-                                        添加新网址申请
-                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" style="text-align: center">新增网站</h4>
                                 </div>
                                 <div class="modal-body">
-                                    在这里添加一些文本
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="field-1" class="control-label">网站名</label>
+                                                <input type="text" class="form-control" id="field-site" placeholder="Website...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="field-3" class="control-label">网址</label>
+                                                <input type="text" class="form-control" id="field-url" placeholder="www.xxx...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group no-margin">
+                                                <label for="field-7" class="control-label">描述</label>
+                                                <textarea class="form-control autogrow" id="field-dsp" placeholder="Write something about the website..." style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                    </button>
-                                    <button type="button" class="btn btn-primary">
-                                        提交
-                                    </button>
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                                    <button type="button" id="addsite-btn" class="btn btn-info disabled" data-dismiss="modal" onclick="add_site()">确定</button>
                                 </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal -->
+                            </div>
+                        </div>
                     </div>
+
+
                 </li>
             </ul>
 
@@ -292,41 +445,26 @@
                 <!-- 用户已登录 -->
                 <li class="afterLogin dropdown user-profile hover-line">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="images/user.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" />
+                        <!-- <img src="images/user.png" alt="user-image" class="img-circle img-inline userpic-32" width="28" /> -->
                         <span id="userNameSpan">
                                 <i class="fa-angle-down"></i>
-                            </span>
+                        </span>
                     </a>
-                    <ul class="dropdown-menu user-profile-menu list-unstyled">
+                    <ul class="dropdown-menu user-profile-menu list-unstyled topul">
                         <li>
-                            <a href="#edit-profile">
-                                <i class="fa-edit"></i>New Post
+                            <a href="homepage.html">
+                                <i class="fa-smile-o"></i>  HomePage
                             </a>
                         </li>
                         <li>
-                            <a href="#settings">
-                                <i class="fa-wrench"></i>Settings
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#profile">
-                                <i class="fa-user"></i>Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#help">
-                                <i class="fa-info"></i>Help
-                            </a>
-                        </li>
-                        <li class="last">
                             <a href="sign_in.html">
-                                <i class="fa-lock"></i>Logout
+                                <i class="fa-lock"></i>  Logout
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="hover-line">
-                    <a href="">
+                    <a href="javascript:void(0);">
                         <i class="fa-comments-o"></i>
                     </a>
                 </li>
@@ -335,7 +473,11 @@
 
         </nav>
 
-
+        <!-- 管理机构 -->
+        <h4 class="text-gray" id="推荐" style="cursor:pointer;" onclick="CollapseOrExpand('h4#推荐+div','h4#推荐 i.updownTag')">
+            <i class="linecons-tag"></i>推荐
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="width: 100%;height: 200px; margin: 0 auto">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -347,22 +489,28 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active" style="width: 100%;height: 200px">
-                    <img src="./assets/img/test0.jpg" alt="...">
+                    <a id="item_1_link" href="http://lib.scnu.edu.cn/">
+                    <img src="assets/img/test0.jpg" alt="...">
                     <div class="carousel-caption">
-                        推荐内容1
+                        <h1 id="item_1_tittle">图书馆</h1>
                     </div>
+                    </a>
                 </div>
                 <div class="item" style="width: 100%;height: 200px">
-                    <img src="./assets/img/test1.jpg" alt="...">
-                    <div class="carousel-caption">
-                        推荐内容2
-                    </div>
+                    <a id="item_2_link" href="http://cs.scnu.edu.cn/">
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_2_tittle">计算机学院</h1>
+                        </div>
+                    </a>
                 </div>
                 <div class="item" style="width: 100%;height: 200px">
-                    <img src="./assets/img/test2.jpg" alt="...">
-                    <div class="carousel-caption">
-                        推荐内容3
-                    </div>
+                    <a id="item_3_link" href="http://jwc.scnu.edu.cn/">
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_3_tittle">教务系统</h1>
+                        </div>
+                    </a>
                 </div>
             </div>
 
@@ -379,8 +527,8 @@
 
         <!-- 管理机构 -->
         <h4 class="text-gray" id="管理机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#管理机构+div','h4#管理机构 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>管理机构
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>管理机构
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -391,7 +539,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>党委办公室、校长办公室</strong>
                                     <!-- 收藏星 -->
                                     <a class="star" onclick="event.cancelBubble = true; collect('党委办公室、校长办公室')">
@@ -411,7 +559,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>组织部</strong>
                                     <!-- 收藏星 -->
                                     <a class="star" onclick="event.cancelBubble = true; collect('组织部')">
@@ -430,7 +578,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>纪委监察处</strong>
                                     <!-- 收藏星 -->
                                     <a class="star" onclick="event.cancelBubble = true; collect('纪委监察处')">
@@ -449,7 +597,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>人事处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('人事处')">
                                         <i class="fa-star-o" id="人事处"></i>
@@ -469,7 +617,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>学生工作部（处）、人民武装部</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('学生工作部（处）、人民武装部')">
                                         <i class="fa-star-o" id="学生工作部（处）、人民武装部"></i>
@@ -487,7 +635,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教务处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教务处')">
                                         <i class="fa-star-o" id="教务处"></i>
@@ -505,7 +653,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>国际交流合作处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('国际交流合作处')">
                                         <i class="fa-star-o" id="国际交流合作处"></i>
@@ -523,7 +671,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>基建处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('基建处')">
                                         <i class="fa-star-o" id="基建处"></i>
@@ -543,7 +691,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>保卫处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('保卫处')">
                                         <i class="fa-star-o" id="保卫处"></i>
@@ -561,7 +709,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>科技处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('科技处')">
                                         <i class="fa-star-o" id="科技处"></i>
@@ -579,7 +727,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>招生考试处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('招生考试处')">
                                         <i class="fa-star-o" id="招生考试处"></i>
@@ -597,7 +745,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>省高校师资培训中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('省高校师资培训中心')">
                                         <i class="fa-star-o" id="省高校师资培训中心"></i>
@@ -617,13 +765,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>研究生院（处）</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('研究生院（处）')">
                                         <i class="fa-star-o" id="研究生院（处）"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">BWC,SCNU</p>
+                                <p class="overflowClip_2">Graduate School,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -635,13 +783,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>社科处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('社科处')">
                                         <i class="fa-star-o" id="社科处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Technology Department,SCNU</p>
+                                <p class="overflowClip_2">Office of Humanities and Social Sciences Division,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -653,13 +801,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>财务处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('财务处')">
                                         <i class="fa-star-o" id="财务处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Entrance Examination Committee Office</p>
+                                <p class="overflowClip_2">Finance Department,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -671,13 +819,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>资产管理处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('资产管理处')">
                                         <i class="fa-star-o" id="资产管理处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Guangdong Teachers Training Center For Institutions of Higher Learning</p>
+                                <p class="overflowClip_2">Asset Management Office,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -691,13 +839,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>后勤管理处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('后勤管理处')">
                                         <i class="fa-star-o" id="后勤管理处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">BWC,SCNU</p>
+                                <p class="overflowClip_2">Logistics Management Mffice,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -709,13 +857,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>校团委</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('校团委')">
                                         <i class="fa-star-o" id="校团委"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Technology Department,SCNU</p>
+                                <p class="overflowClip_2">Youth League,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -727,13 +875,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>校工会</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('校工会')">
                                         <i class="fa-star-o" id="校工会"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Entrance Examination Committee Office</p>
+                                <p class="overflowClip_2">Trade Union,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -745,13 +893,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>发展规划处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('发展规划处')">
                                         <i class="fa-star-o" id="发展规划处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Guangdong Teachers Training Center For Institutions of Higher Learning</p>
+                                <p class="overflowClip_2">Development and Planning Department,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -765,13 +913,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>社会服务处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('社会服务处')">
                                         <i class="fa-star-o" id="社会服务处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">BWC,SCNU</p>
+                                <p class="overflowClip_2">Social Service,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -783,13 +931,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>离退休工作办公室</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('离退休工作办公室')">
                                         <i class="fa-star-o" id="离退休工作办公室"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Technology Department,SCNU</p>
+                                <p class="overflowClip_2">Retired Work Office,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -801,13 +949,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>审计处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('审计处')">
                                         <i class="fa-star-o" id="审计处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Entrance Examination Committee Office</p>
+                                <p class="overflowClip_2">Audit Office,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -819,13 +967,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>机关党委</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('机关党委')">
                                         <i class="fa-star-o" id="机关党委"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Guangdong Teachers Training Center For Institutions of Higher Learning</p>
+                                <p class="overflowClip_2">Party Committee,SCNU</p>
                             </div>
                         </div>
                     </div>
@@ -838,8 +986,8 @@
 
         <!-- 教学机构 -->
         <h4 class="text-gray" id="教学机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#教学机构+div','h4#教学机构 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>教学机构
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>教学机构
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -850,13 +998,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>文学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('文学院')">
                                         <i class="fa-star-o" id="文学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Literature</p>
                             </div>
                         </div>
                     </div>
@@ -868,13 +1016,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>历史文化学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('历史文化学院')">
                                         <i class="fa-star-o" id="历史文化学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of History and Culture</p>
                             </div>
                         </div>
                     </div>
@@ -886,13 +1034,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>法学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('法学院')">
                                         <i class="fa-star-o" id="法学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Law</p>
                             </div>
                         </div>
                     </div>
@@ -904,13 +1052,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>政治与行政学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('政治与行政学院')">
                                         <i class="fa-star-o" id="政治与行政学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Politics and Administration</p>
                             </div>
                         </div>
                     </div>
@@ -924,13 +1072,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>马克思主义学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('马克思主义学院')">
                                         <i class="fa-star-o" id="马克思主义学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Marxism</p>
                             </div>
                         </div>
                     </div>
@@ -942,13 +1090,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>经济与管理学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('经济与管理学院')">
                                         <i class="fa-star-o" id="经济与管理学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Economics and Management</p>
                             </div>
                         </div>
                     </div>
@@ -960,13 +1108,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教育科学学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教育科学学院')">
                                         <i class="fa-star-o" id="教育科学学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Education</p>
                             </div>
                         </div>
                     </div>
@@ -978,13 +1126,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>心理学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('心理学院')">
                                         <i class="fa-star-o" id="心理学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Psychology</p>
                             </div>
                         </div>
                     </div>
@@ -998,13 +1146,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>外国语言文化学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('外国语言文化学院')">
                                         <i class="fa-star-o" id="外国语言文化学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Foreign Studies</p>
                             </div>
                         </div>
                     </div>
@@ -1016,13 +1164,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>公共管理学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('公共管理学院')">
                                         <i class="fa-star-o" id="公共管理学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Public Administration</p>
                             </div>
                         </div>
                     </div>
@@ -1034,13 +1182,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>体育科学学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('体育科学学院')">
                                         <i class="fa-star-o" id="体育科学学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Physical Education and Sports Science</p>
                             </div>
                         </div>
                     </div>
@@ -1052,13 +1200,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>生命科学学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('生命科学学院')">
                                         <i class="fa-star-o" id="生命科学学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Life Sciences</p>
                             </div>
                         </div>
                     </div>
@@ -1072,13 +1220,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教育信息技术学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教育信息技术学院')">
                                         <i class="fa-star-o" id="教育信息技术学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Information Technology in Education</p>
                             </div>
                         </div>
                     </div>
@@ -1090,13 +1238,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>信息光电子科技学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('信息光电子科技学院')">
                                         <i class="fa-star-o" id="信息光电子科技学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Information and Optoelectronic Science and Engineering</p>
                             </div>
                         </div>
                     </div>
@@ -1108,13 +1256,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>网络教育学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('网络教育学院')">
                                         <i class="fa-star-o" id="网络教育学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Network Education</p>
                             </div>
                         </div>
                     </div>
@@ -1126,13 +1274,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>继续教育学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('继续教育学院')">
                                         <i class="fa-star-o" id="继续教育学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">College of Continuing Education</p>
                             </div>
                         </div>
                     </div>
@@ -1146,13 +1294,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>物理与电信工程学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('物理与电信工程学院')">
                                         <i class="fa-star-o" id="物理与电信工程学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Physics and Telecommunications Engineering</p>
                             </div>
                         </div>
                     </div>
@@ -1164,13 +1312,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>数学科学学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('数学科学学院')">
                                         <i class="fa-star-o" id="数学科学学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Mathematical Sciences</p>
                             </div>
                         </div>
                     </div>
@@ -1182,13 +1330,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>化学与环境学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('化学与环境学院')">
                                         <i class="fa-star-o" id="化学与环境学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Chemistry and Environment</p>
                             </div>
                         </div>
                     </div>
@@ -1200,13 +1348,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>计算机学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('计算机学院')">
                                         <i class="fa-star-o" id="计算机学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Computer Science</p>
                             </div>
                         </div>
                     </div>
@@ -1220,13 +1368,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>地理科学学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('地理科学学院')">
                                         <i class="fa-star-o" id="地理科学学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Geography</p>
                             </div>
                         </div>
                     </div>
@@ -1238,13 +1386,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>音乐学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('音乐学院')">
                                         <i class="fa-star-o" id="音乐学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Music</p>
                             </div>
                         </div>
                     </div>
@@ -1256,13 +1404,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>美术学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('美术学院')">
                                         <i class="fa-star-o" id="美术学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Fine Arts</p>
                             </div>
                         </div>
                     </div>
@@ -1274,13 +1422,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>基础教育培训与研究院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('基础教育培训与研究院')">
                                         <i class="fa-star-o" id="基础教育培训与研究院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Professional Development and Research on Primary and Secondary Education</p>
                             </div>
                         </div>
                     </div>
@@ -1294,13 +1442,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>旅游管理学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('旅游管理学院')">
                                         <i class="fa-star-o" id="旅游管理学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Tourism Management</p>
                             </div>
                         </div>
                     </div>
@@ -1312,13 +1460,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>国际文化学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('国际文化学院')">
                                         <i class="fa-star-o" id="国际文化学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">College of International Culture</p>
                             </div>
                         </div>
                     </div>
@@ -1330,13 +1478,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>国际商学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('国际商学院')">
                                         <i class="fa-star-o" id="国际商学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">International Business College</p>
                             </div>
                         </div>
                     </div>
@@ -1348,13 +1496,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>软件学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('软件学院')">
                                         <i class="fa-star-o" id="软件学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Software</p>
                             </div>
                         </div>
                     </div>
@@ -1368,13 +1516,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>城市文化学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('城市文化学院')">
                                         <i class="fa-star-o" id="城市文化学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Urban Culture</p>
                             </div>
                         </div>
                     </div>
@@ -1386,13 +1534,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>凤凰国际学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('凤凰国际学院')">
                                         <i class="fa-star-o" id="凤凰国际学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">Phoenix International College</p>
                             </div>
                         </div>
                     </div>
@@ -1404,13 +1552,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>职业教育学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('职业教育学院')">
                                         <i class="fa-star-o" id="职业教育学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">Vocational Education College</p>
                             </div>
                         </div>
                     </div>
@@ -1422,13 +1570,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>创业学院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('创业学院')">
                                         <i class="fa-star-o" id="创业学院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">School of Entrepreneurship</p>
                             </div>
                         </div>
                     </div>
@@ -1442,13 +1590,13 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>脑科学与康复医学研究院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('脑科学与康复医学研究院')">
                                         <i class="fa-star-o" id="脑科学与康复医学研究院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">College of Literature</p>
+                                <p class="overflowClip_2">Institute for Brain Research and Rehabilitation</p>
                             </div>
                         </div>
                     </div>
@@ -1461,8 +1609,8 @@
 
         <!-- 科研机构 -->
         <h4 class="text-gray" id="科研机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#科研机构+div','h4#科研机构 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>科研机构
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>科研机构
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -1473,7 +1621,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教科所</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教科所')">
                                         <i class="fa-star-o" id="教科所"></i>
@@ -1491,7 +1639,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>激光生命科学实验室</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('激光生命科学实验室')">
                                         <i class="fa-star-o" id="激光生命科学实验室"></i>
@@ -1509,7 +1657,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>经济行为科学重点实验室</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('经济行为科学重点实验室')">
                                         <i class="fa-star-o" id="经济行为科学重点实验室"></i>
@@ -1527,7 +1675,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>植物发育生物工程实验室</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('植物发育生物工程实验室')">
                                         <i class="fa-star-o" id="植物发育生物工程实验室"></i>
@@ -1547,7 +1695,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>光电子材料与技术研究所</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('光电子材料与技术研究所')">
                                         <i class="fa-star-o" id="光电子材料与技术研究所"></i>
@@ -1565,7 +1713,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>光子信息技术实验室</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('光子信息技术实验室')">
                                         <i class="fa-star-o" id="光子信息技术实验室"></i>
@@ -1583,7 +1731,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华南市场经济研究中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华南市场经济研究中心')">
                                         <i class="fa-star-o" id="华南市场经济研究中心"></i>
@@ -1601,7 +1749,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华南先进光电子研究院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华南先进光电子研究院')">
                                         <i class="fa-star-o" id="华南先进光电子研究院"></i>
@@ -1621,7 +1769,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>生物光子学研究院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('生物光子学研究院')">
                                         <i class="fa-star-o" id="生物光子学研究院"></i>
@@ -1639,7 +1787,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>城市与区域发展研究中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('城市与区域发展研究中心')">
                                         <i class="fa-star-o" id="城市与区域发展研究中心"></i>
@@ -1657,7 +1805,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>运动科学实验教学示范中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('运动科学实验教学示范中心')">
                                         <i class="fa-star-o" id="运动科学实验教学示范中心"></i>
@@ -1675,7 +1823,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>系统科学与系统管理研究中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('系统科学与系统管理研究中心')">
                                         <i class="fa-star-o" id="系统科学与系统管理研究中心"></i>
@@ -1695,7 +1843,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>光及电磁波研究中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('光及电磁波研究中心')">
                                         <i class="fa-star-o" id="光及电磁波研究中心"></i>
@@ -1713,7 +1861,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>文化产业与文化地理研究中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('文化产业与文化地理研究中心')">
                                         <i class="fa-star-o" id="文化产业与文化地理研究中心"></i>
@@ -1732,8 +1880,8 @@
 
         <!-- 教辅机构 -->
         <h4 class="text-gray" id="教辅机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#教辅机构+div','h4#教辅机构 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>教辅机构
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>教辅机构
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -1744,7 +1892,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>网络中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('网络中心')">
                                         <i class="fa-star-o" id="网络中心"></i>
@@ -1762,7 +1910,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>图书馆</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('图书馆')">
                                         <i class="fa-star-o" id="图书馆"></i>
@@ -1780,7 +1928,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>档案馆</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('档案馆')">
                                         <i class="fa-star-o" id="档案馆"></i>
@@ -1798,7 +1946,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>分析测试中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('分析测试中心')">
                                         <i class="fa-star-o" id="分析测试中心"></i>
@@ -1818,7 +1966,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教师发展中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教师发展中心')">
                                         <i class="fa-star-o" id="教师发展中心"></i>
@@ -1837,8 +1985,8 @@
 
         <!-- 学术机构 -->
         <h4 class="text-gray" id="学术机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#学术机构+div','h4#学术机构 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>学术机构
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>学术机构
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -1849,7 +1997,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华南师大学报</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华南师大学报')">
                                         <i class="fa-star-o" id="华南师大学报"></i>
@@ -1867,7 +2015,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>体育学刊</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('体育学刊')">
                                         <i class="fa-star-o" id="体育学刊"></i>
@@ -1886,8 +2034,8 @@
 
         <!-- 校园网应用 -->
         <h4 class="text-gray" id="校园网应用" style="cursor:pointer;" onclick="CollapseOrExpand('h4#校园网应用+div','h4#校园网应用 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>校园网应用
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>校园网应用
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -1898,7 +2046,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华师百科</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华师百科')">
                                         <i class="fa-star-o" id="华师百科"></i>
@@ -1916,7 +2064,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华师新陶园论坛</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华师新陶园论坛')">
                                         <i class="fa-star-o" id="华师新陶园论坛"></i>
@@ -1934,7 +2082,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华师陶园PT</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华师陶园PT')">
                                         <i class="fa-star-o" id="华师陶园PT"></i>
@@ -1952,7 +2100,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>邮箱服务</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('邮箱服务')">
                                         <i class="fa-star-o" id="邮箱服务"></i>
@@ -1972,7 +2120,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>综合服务平台</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('综合服务平台')">
                                         <i class="fa-star-o" id="综合服务平台"></i>
@@ -1990,7 +2138,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>移动平台</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('移动平台')">
                                         <i class="fa-star-o" id="移动平台"></i>
@@ -2008,7 +2156,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>校园网自助服务平台</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('校园网自助服务平台')">
                                         <i class="fa-star-o" id="校园网自助服务平台"></i>
@@ -2026,7 +2174,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>校园视频网</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('校园视频网')">
                                         <i class="fa-star-o" id="校园视频网"></i>
@@ -2046,7 +2194,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>锐捷客户端下载</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('锐捷客户端下载')">
                                         <i class="fa-star-o" id="锐捷客户端下载"></i>
@@ -2065,8 +2213,8 @@
 
         <!-- 学生服务 -->
         <h4 class="text-gray" id="学生服务" style="cursor:pointer;" onclick="CollapseOrExpand('h4#学生服务+div','h4#学生服务 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>学生服务
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>学生服务
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -2077,7 +2225,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教务管理系统</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教务管理系统')">
                                         <i class="fa-star-o" id="教务管理系统"></i>
@@ -2095,7 +2243,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教学信息查询系统</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教学信息查询系统')">
                                         <i class="fa-star-o" id="教学信息查询系统"></i>
@@ -2113,7 +2261,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>学生工作信息管理系统</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('学生工作信息管理系统')">
                                         <i class="fa-star-o" id="学生工作信息管理系统"></i>
@@ -2131,7 +2279,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>课程中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('课程中心')">
                                         <i class="fa-star-o" id="课程中心"></i>
@@ -2151,7 +2299,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教务处</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教务处')">
                                         <i class="fa-star-o" id="教务处"></i>
@@ -2169,7 +2317,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>图书馆</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('图书馆')">
                                         <i class="fa-star-o" id="图书馆"></i>
@@ -2187,7 +2335,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>勤工助学管理中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('勤工助学管理中心')">
                                         <i class="fa-star-o" id="勤工助学管理中心"></i>
@@ -2205,7 +2353,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>学生就业指导中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('学生就业指导中心')">
                                         <i class="fa-star-o" id="学生就业指导中心"></i>
@@ -2225,7 +2373,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>心理咨询研究中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('心理咨询研究中心')">
                                         <i class="fa-star-o" id="心理咨询研究中心"></i>
@@ -2243,7 +2391,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>学生会</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('学生会')">
                                         <i class="fa-star-o" id="学生会"></i>
@@ -2261,8 +2409,8 @@
 
         <!-- 其他 -->
         <h4 class="text-gray" id="其他" style="cursor:pointer;" onclick="CollapseOrExpand('h4#其他+div','h4#其他 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>其他
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>其他
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
             <div class="row">
@@ -2273,7 +2421,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教育发展中心</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教育发展中心')">
                                         <i class="fa-star-o" id="教育发展中心"></i>
@@ -2291,7 +2439,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>电子化政府采购系统</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('电子化政府采购系统')">
                                         <i class="fa-star-o" id="电子化政府采购系统"></i>
@@ -2309,7 +2457,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>华南师大附属幼儿园</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('华南师大附属幼儿园')">
                                         <i class="fa-star-o" id="华南师大附属幼儿园"></i>
@@ -2327,7 +2475,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>校医院</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('校医院')">
                                         <i class="fa-star-o" id="校医院"></i>
@@ -2347,7 +2495,7 @@
                                 <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
                             </a>
                             <div class="xe-comment">
-                                <a href="#" class="xe-user-name overflowClip_1">
+                                <a class="xe-user-name overflowClip_1">
                                     <strong>教育审计协会</strong>
                                     <a class="star" onclick="event.cancelBubble = true; collect('教育审计协会')">
                                         <i class="fa-star-o" id="教育审计协会"></i>
@@ -2365,8 +2513,8 @@
 
         <!-- 社团 -->
         <h4 class="text-gray" id="社团" style="cursor:pointer;" onclick="CollapseOrExpand('h4#社团+div','h4#社团 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>社团
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>社团
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div>
 
@@ -2375,8 +2523,8 @@
 
         <!-- 我的收藏 -->
         <h4 class="text-gray" id="我的收藏" style="cursor:pointer;" onclick="CollapseOrExpand('h4#我的收藏+div','h4#我的收藏 i.updownTag')">
-            <i class="linecons-tag" style="margin-right: 7px;"></i>我的收藏
-            <i class="fa-angle-down updownTag" style="float: right;"></i>
+            <i class="linecons-tag"></i>我的收藏
+            <i class="fa-angle-down updownTag"></i>
         </h4>
         <div id="divCollect">
 
@@ -2403,6 +2551,7 @@
                 </div>
             </div>
         </footer>
+
     </div>
 </div>
 
@@ -2479,24 +2628,55 @@
 
     });
 
+
     //隐藏/显示收藏星
     $("#collectStar").click(function(e){
         $("a.star").toggle();
     })
 
+
     //打开/关闭提示条
     $("#opTooltip").click(function(e){
-        // var value = $("div.xe-widget").attr("data-toggle");
-        // console.log(value);
-        // if(value == "tooltip"){
-        //     $("div.xe-widget").attr("data-placement","");
-        // }else{
-        //     $("div.xe-widget").attr("data-placement","bottom");
-        // }
-        // value = $("div.xe-widget").attr("data-toggle");
-        // console.log(value);
+        var list = $("div.label-info");
+        var value = list.attr("data-original-title");
+        console.log(value);
+        if(value != ""){
+            $.each(list,function(i){
+                $(this).attr("data-original-title","");
+            })
+        }else{
+            var ilist = $("a.star i");
+            var idlist = [];
+            $.each(ilist,function(i){
+                idlist[i] = $(this).attr("id");
+            })
 
+            $.each(list,function(i){
+                $(this).attr("data-original-title",website_url[idlist[i]]);
+            })
+        }
     })
+
+
+    //换肤(左侧导航栏)
+    $('[data-set-skin]').on('click',function(ev){
+        ev.preventDefault();
+        var skin = $(this).attr('data-set-skin');
+        var skin_name = skin ? ('skin-' + skin) : '';
+        var body_classes = public_vars.$body.attr('class').replace(/ skin-[a-z]+/i, '');
+        public_vars.$body.attr('class',body_classes).addClass(skin_name);
+        //$.cookies('current-skin',skin,{expires:365});
+    });
+    //换肤(顶部工具栏)
+    $('[data-set-skin-horizontal]').on('click',function(ev){
+        ev.preventDefault();
+        var skin = $(this).attr('data-set-skin-horizontal');
+        var user_info_navbar_skin_name = skin ? ('user-info-navbar-skin-' + skin) : '';
+        var body_classes = public_vars.$body.attr('class').replace(/user-info-navbar-skin-[a-z]+/i, '');
+        public_vars.$body.attr('class',body_classes).addClass(user_info_navbar_skin_name);
+        //$.cookies('current-user-info-navbar-skin',skin,{expires:365});
+    });
+
 
     //点击标题上下缩展
     function CollapseOrExpand(divSelector,iconSelector){
@@ -2524,7 +2704,8 @@
 
     //插入收藏夹
     function insert_collect(starId){
-        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><a href=\"#\" class=\"xe-user-name overflowClip_1\"><a href=\"#\" class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star-o\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
+        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a href=\"#\" class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star-o\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
+
 
         var lastRow = $("div#divCollect div.row").last();
         lastRow.html(lastRow.html() + insertText);
@@ -2590,7 +2771,7 @@
 <!-- JavaScripts initializations and stuff -->
 <script src="js/xenon-custom.js"></script>
 
-
+<!--轮播图自动播放间隔-->
 <script>
     $('.carousel').carousel({
         interval: 2000
