@@ -60,8 +60,72 @@ var website_url =
 	"脑科学与康复医学研究院" : "http://ibrr.scnu.edu.cn",
 
 
+	//科研机构
+	"教科所" : "http://esi.scnu.edu.cn",
+	"激光生命科学实验室" : "http://laser.scnu.edu.cn",
+	"经济行为科学重点实验室" : "http://sleb.scnu.edu.cn",
+	"植物发育生物工程实验室" : "http://sky.scnu.edu.cn/zdsys/zwfy/keylab2004/index0.htm",
+
+	"光电子材料与技术研究所" : "http://iomt.scnu.edu.cn",
+	"光子信息技术实验室" : "http://202.116.32.249/gxjs",
+	"华南市场经济研究中心" : "http://hnjj.scnu.edu.cn",
+	"华南先进光电子研究院" : "http://aoe.scnu.edu.cn",
+
+	"生物光子学研究院" : "http://biop.scnu.edu.cn",
+	"城市与区域发展研究中心" : "http://curds.scnu.edu.cn",
+	"运动科学实验教学示范中心" : "http://sportlab.scnu.edu.cn",
+	"系统科学与系统管理研究中心" : "http://sssmcenter.scnu.edu.cn",
+
+	"光及电磁波研究中心" : "http://coer.scnu.edu.cn",
+	"文化产业与文化地理研究中心" : "http://cscg.scnu.edu.cn",
+
+
+	//辅教机构
+	"网络中心" : "http://nc.scnu.edu.cn",
 	"图书馆" : "http://lib.scnu.edu.cn",
+	"档案馆" : "http://dag.scnu.edu.cn",
+	"分析测试中心" : "http://atc.scnu.edu.cn",
+
+	"教师发展中心" : "http://ctld.scnu.edu.cn",
+
+	//学术机构
+	"华南师大学报" : "http://journal.scnu.edu.cn",
+	"体育学刊" : "http://www.chinatyxk.com",
+
+	//校园应用
+	"华师百科" : "http://wiki.scnu.edu.cn",
+	"华师新陶园论坛" : "http://bbs.scnu.edu.cn",
+	"华师陶园PT" : "http://pt.scnu.edu.cn",
+	"邮箱服务" : "http://mail.scnu.edu.cn",
+
+	"综合服务平台" : "http://sso.scnu.edu.cn",
+	"移动平台" : "http://app.scnu.edu.cn",
+	"校园网自助服务平台" : "http://sso.scnu.edu.cn/selfservice",
+	"校园视频网" : "http://222.200.129.36",
+
+	"锐捷客户端下载" : "http://statics.scnu.edu.cn/ruijie/index.htm",
+
+	//学生服务
 	"教务管理系统" : "http://jwc.scnu.edu.cn",
+	"教学信息查询系统" : "http://222.201.93.5:211",
+	"学生工作信息管理系统" : "http://ssp.scnu.edu.cn",
+	"课程中心" : "http://202.116.47.190/course_center/index",
+
+	"教务处" : "http://jw.scnu.edu.cn",
+	"图书馆" : "http://lib.scnu.edu.cn",
+	"勤工助学管理中心" : "http://www.scnuqg.com",
+	"学生就业指导中心" : "http://career.scnu.edu.cn",
+
+	"心理咨询研究中心" : "http://www.psyonline.cn",
+	"学生会" : "http://stuu.scnu.edu.cn",
+
+	//其他
+	"教育发展中心" : "http://jyfzzx.scnu.edu.cn",
+	"电子化政府采购系统" : "http://www.gdgpo.gov.cn",
+	"华南师大附属幼儿园" : "http://yey.scnu.edu.cn",
+	"校医院" : "http://hospital.scnu.edu.cn",
+
+	"教育审计协会" : "http://geaa.scnu.edu.cn"
 };
 
 
@@ -127,6 +191,64 @@ var website_english =
 	"脑科学与康复医学研究院" : "Institute for Brain Research and Rehabilitation",
 
 
-	"图书馆" : "lib",
-	"教务管理系统" : "jwc",
+	//科研机构
+	"教科所" : "Institute of Education",
+	"激光生命科学实验室" : "Key Laboratory of Laser Life Science, Ministry of Education",
+	"经济行为科学重点实验室" : "Key Laboratory of Economic Behavioral Science",
+	"植物发育生物工程实验室" : "Plant Development Bioengineering Laboratory",
+	"光电子材料与技术研究所" : "Institute of Optoelectronic Materials and Technology",
+	"光子信息技术实验室" : "Photonic Information Technology Laboratory",
+
+
+
+	"华南市场经济研究中心" : "South China Market Economy Research Center",
+	"华南先进光电子研究院" : "South China Advanced Photonics Research Institute",
+	"生物光子学研究院" : "Biophotonics Institute",
+	"城市与区域发展研究中心" : "Urban and Regional Development Research Center",
+	"运动科学实验教学示范中心" : "Sports Science Experimental Teaching Demonstration Center",
+	"系统科学与系统管理研究中心" : "Systems Science and Systems Management Research Center",
+	"光及电磁波研究中心" : "Optical and Electromagnetic Wave Research Center",
+	"文化产业与文化地理研究中心" : "Cultural Industry and Cultural Geography Research Center",
+
+
+	//辅教机构
+	"网络中心" : "Network Center",
+	"图书馆" : "Library",
+	"档案馆" : "Archives",
+	"分析测试中心" : "Analytical test center",
+	"教师发展中心" : "Teacher development center",
+
+	//学术机构
+	"华南师大学报" : "Journal of SCNU",
+	"体育学刊" : "Sports Journal",
+
+	//校园应用
+	"华师百科" : "WIKI.SCNU",
+	"华师新陶园论坛" : "Huashi New Ceramic Garden Forum",
+	"华师陶园PT" : "Huashi Taoyuan PT",
+	"邮箱服务" : "Mailbox service",
+	"综合服务平台" : "Integrated service platform",
+	"移动平台" : "Mobile Platform",
+	"校园网自助服务平台" : "Campus network self-service platform",
+	"校园视频网" : "Campus video network",
+	"锐捷客户端下载" : "Ruijie client download",
+
+	//学生服务
+	"教务管理系统" : "Educational Management System",
+	"教学信息查询系统" : "Teaching information inquiry system",
+	"学生工作信息管理系统" : "Student work information management system",
+	"课程中心" : "Course center",
+	"教务处" : "Academic Affairs Office",
+	"图书馆" : "Library",
+	"勤工助学管理中心" : "Work-study management center",
+	"学生就业指导中心" : "Student Employment Guidance Center",
+	"心理咨询研究中心" : "Counseling Research Center",
+	"学生会" : "Student Union",
+
+	//其他
+	"教育发展中心" : "Education Development Center",
+	"电子化政府采购系统" : "Electronic government procurement system",
+	"华南师大附属幼儿园" : "South China Normal University Affiliated Kindergarten",
+	"校医院" : "School Hospital",
+	"教育审计协会" : "Educational Audit Association"
 }

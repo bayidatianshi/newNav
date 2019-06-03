@@ -79,6 +79,10 @@
         var userName = "";
         var collections;
 
+        var fadedLabel = false;
+        var fadedStar = false;
+        var fadedTip = false;
+
         //...
 
         $(function(){
@@ -377,30 +381,56 @@
                         <i class="fa-edit"></i>
                     </a>
                     <!-- 申请添加新网址模态框（Modal） -->
-                    <div class="modal fade" id="addApplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="addApplyModal" aria-hidden="true" data-backdrop='static' style="display: none;">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">
-                                        添加新网址申请
-                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" style="text-align: center">申请添加新网站</h4>
                                 </div>
                                 <div class="modal-body">
-                                    在这里添加一些文本
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="field-1" class="control-label">网站名</label>
+                                                <input type="text" class="form-control" id="field-site" placeholder="Website...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="field-2" class="control-label">网址</label>
+                                                <input type="text" class="form-control" id="field-url" placeholder="www.xxx...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="field-3" class="control-label">标题</label>
+                                                <input type="text" class="form-control" id="field-title" placeholder="管理机构、教学机构、社团...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group no-margin">
+                                                <label for="field-4" class="control-label">描述</label>
+                                                <textarea class="form-control autogrow" id="field-dsp" placeholder="Write something about the website..." style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                                    </button>
-                                    <button type="button" class="btn btn-primary">
-                                        提交
-                                    </button>
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                                    <button type="button" id="applysite-btn" class="btn btn-info disabled" data-dismiss="modal" onclick="apply_site()">确定</button>
                                 </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal -->
+                            </div>
+                        </div>
                     </div>
+
+
                 </li>
             </ul>
 
@@ -418,7 +448,7 @@
 
                 <!-- 用户登录 跳转到登录页面 -->
                 <li class="beforeLogin hover-line" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="登录">
-                    <a href="">
+                    <a href="sign_in.html">
                         <i class="fa-user"></i>
                     </a>
 
@@ -471,22 +501,28 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active" style="width: 100%;height: 200px">
-                    <img src="./assets/img/test0.jpg" alt="...">
+                    <a id="item_1_link" href="http://lib.scnu.edu.cn/">
+                    <img src="assets/img/test0.jpg" alt="...">
                     <div class="carousel-caption">
-                        推荐内容1
+                        <h1 id="item_1_tittle">图书馆</h1>
                     </div>
+                    </a>
                 </div>
                 <div class="item" style="width: 100%;height: 200px">
-                    <img src="./assets/img/test1.jpg" alt="...">
-                    <div class="carousel-caption">
-                        推荐内容2
-                    </div>
+                    <a id="item_2_link" href="http://cs.scnu.edu.cn/">
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_2_tittle">计算机学院</h1>
+                        </div>
+                    </a>
                 </div>
                 <div class="item" style="width: 100%;height: 200px">
-                    <img src="./assets/img/test2.jpg" alt="...">
-                    <div class="carousel-caption">
-                        推荐内容3
-                    </div>
+                    <a id="item_3_link" href="http://jwc.scnu.edu.cn/">
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_3_tittle">教务系统</h1>
+                        </div>
+                    </a>
                 </div>
             </div>
 
@@ -1639,7 +1675,7 @@
                                         <i class="fa-star-o" id="经济行为科学重点实验室"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">Key Laboratory of Economic Behavioral Science</p>
                             </div>
                         </div>
                     </div>
@@ -1657,7 +1693,7 @@
                                         <i class="fa-star-o" id="植物发育生物工程实验室"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Plant Development Bioengineering Laboratory</p>
                             </div>
                         </div>
                     </div>
@@ -1677,7 +1713,7 @@
                                         <i class="fa-star-o" id="光电子材料与技术研究所"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">Institute of Optoelectronic Materials and Technology</p>
                             </div>
                         </div>
                     </div>
@@ -1695,7 +1731,7 @@
                                         <i class="fa-star-o" id="光子信息技术实验室"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Photonic Information Technology Laboratory</p>
                             </div>
                         </div>
                     </div>
@@ -1713,7 +1749,7 @@
                                         <i class="fa-star-o" id="华南市场经济研究中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">South China Market Economy Research Center</p>
                             </div>
                         </div>
                     </div>
@@ -1731,7 +1767,7 @@
                                         <i class="fa-star-o" id="华南先进光电子研究院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">South China Advanced Photonics Research Institute</p>
                             </div>
                         </div>
                     </div>
@@ -1751,7 +1787,7 @@
                                         <i class="fa-star-o" id="生物光子学研究院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">Biophotonics Institute</p>
                             </div>
                         </div>
                     </div>
@@ -1769,7 +1805,7 @@
                                         <i class="fa-star-o" id="城市与区域发展研究中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Urban and Regional Development Research Center</p>
                             </div>
                         </div>
                     </div>
@@ -1787,7 +1823,7 @@
                                         <i class="fa-star-o" id="运动科学实验教学示范中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">Sports Science Experimental Teaching Demonstration Center</p>
                             </div>
                         </div>
                     </div>
@@ -1805,7 +1841,7 @@
                                         <i class="fa-star-o" id="系统科学与系统管理研究中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Systems Science and Systems Management Research Center</p>
                             </div>
                         </div>
                     </div>
@@ -1825,7 +1861,7 @@
                                         <i class="fa-star-o" id="光及电磁波研究中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">Optical and Electromagnetic Wave Research Center</p>
                             </div>
                         </div>
                     </div>
@@ -1843,7 +1879,7 @@
                                         <i class="fa-star-o" id="文化产业与文化地理研究中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Cultural Industry and Cultural Geography Research Center</p>
                             </div>
                         </div>
                     </div>
@@ -1892,7 +1928,7 @@
                                         <i class="fa-star-o" id="图书馆"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Library</p>
                             </div>
                         </div>
                     </div>
@@ -1910,7 +1946,7 @@
                                         <i class="fa-star-o" id="档案馆"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Institute of Education</p>
+                                <p class="overflowClip_2">Archives</p>
                             </div>
                         </div>
                     </div>
@@ -1928,7 +1964,7 @@
                                         <i class="fa-star-o" id="分析测试中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Analytical test center</p>
                             </div>
                         </div>
                     </div>
@@ -1948,7 +1984,7 @@
                                         <i class="fa-star-o" id="教师发展中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                                <p class="overflowClip_2">Teacher development center</p>
                             </div>
                         </div>
                     </div>
@@ -1997,7 +2033,7 @@
                                         <i class="fa-star-o" id="体育学刊"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Journal of SCNU</p>
+                                <p class="overflowClip_2">Sports Journal</p>
                             </div>
                         </div>
                     </div>
@@ -2046,7 +2082,7 @@
                                         <i class="fa-star-o" id="华师新陶园论坛"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Huashi New Ceramic Garden Forum</p>
                             </div>
                         </div>
                     </div>
@@ -2064,7 +2100,7 @@
                                         <i class="fa-star-o" id="华师陶园PT"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Huashi Taoyuan PT</p>
                             </div>
                         </div>
                     </div>
@@ -2082,7 +2118,7 @@
                                         <i class="fa-star-o" id="邮箱服务"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Mailbox service</p>
                             </div>
                         </div>
                     </div>
@@ -2102,7 +2138,7 @@
                                         <i class="fa-star-o" id="综合服务平台"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Integrated service platform</p>
                             </div>
                         </div>
                     </div>
@@ -2120,7 +2156,7 @@
                                         <i class="fa-star-o" id="移动平台"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Mobile Platform</p>
                             </div>
                         </div>
                     </div>
@@ -2138,7 +2174,7 @@
                                         <i class="fa-star-o" id="校园网自助服务平台"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Campus network self-service platform</p>
                             </div>
                         </div>
                     </div>
@@ -2156,7 +2192,7 @@
                                         <i class="fa-star-o" id="校园视频网"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Campus video network</p>
                             </div>
                         </div>
                     </div>
@@ -2176,7 +2212,7 @@
                                         <i class="fa-star-o" id="锐捷客户端下载"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">WIKI.SCNU</p>
+                                <p class="overflowClip_2">Ruijie client download</p>
                             </div>
                         </div>
                     </div>
@@ -2225,7 +2261,7 @@
                                         <i class="fa-star-o" id="教学信息查询系统"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Teaching information inquiry system</p>
                             </div>
                         </div>
                     </div>
@@ -2243,7 +2279,7 @@
                                         <i class="fa-star-o" id="学生工作信息管理系统"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Student work information management system</p>
                             </div>
                         </div>
                     </div>
@@ -2261,7 +2297,7 @@
                                         <i class="fa-star-o" id="课程中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Course center</p>
                             </div>
                         </div>
                     </div>
@@ -2281,7 +2317,7 @@
                                         <i class="fa-star-o" id="教务处"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Academic Affairs Office</p>
                             </div>
                         </div>
                     </div>
@@ -2299,7 +2335,7 @@
                                         <i class="fa-star-o" id="图书馆"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Library</p>
                             </div>
                         </div>
                     </div>
@@ -2317,7 +2353,7 @@
                                         <i class="fa-star-o" id="勤工助学管理中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Work-study management center</p>
                             </div>
                         </div>
                     </div>
@@ -2335,7 +2371,7 @@
                                         <i class="fa-star-o" id="学生就业指导中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Student Employment Guidance Center</p>
                             </div>
                         </div>
                     </div>
@@ -2355,7 +2391,7 @@
                                         <i class="fa-star-o" id="心理咨询研究中心"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Counseling Research Center</p>
                             </div>
                         </div>
                     </div>
@@ -2373,7 +2409,7 @@
                                         <i class="fa-star-o" id="学生会"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Management System</p>
+                                <p class="overflowClip_2">Student Union</p>
                             </div>
                         </div>
                     </div>
@@ -2421,7 +2457,7 @@
                                         <i class="fa-star-o" id="电子化政府采购系统"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Development Center</p>
+                                <p class="overflowClip_2">Electronic government procurement system</p>
                             </div>
                         </div>
                     </div>
@@ -2439,7 +2475,7 @@
                                         <i class="fa-star-o" id="华南师大附属幼儿园"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Development Center</p>
+                                <p class="overflowClip_2">South China Normal University Affiliated Kindergarten</p>
                             </div>
                         </div>
                     </div>
@@ -2457,7 +2493,7 @@
                                         <i class="fa-star-o" id="校医院"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Development Center</p>
+                                <p class="overflowClip_2">School Hospital</p>
                             </div>
                         </div>
                     </div>
@@ -2477,7 +2513,7 @@
                                         <i class="fa-star-o" id="教育审计协会"></i>
                                     </a>
                                 </a>
-                                <p class="overflowClip_2">Educational Development Center</p>
+                                <p class="overflowClip_2">Educational Audit Association</p>
                             </div>
                         </div>
                     </div>
@@ -2600,8 +2636,8 @@
 
     //英文标签淡入淡出
     $("#enLabel").click(function(e){
+        fadedLabel = !fadedLabel;
         $("p.overflowClip_2").fadeToggle(800);
-
     });
 
 
@@ -2613,25 +2649,30 @@
 
     //打开/关闭提示条
     $("#opTooltip").click(function(e){
-        var list = $("div.label-info");
-        var value = list.attr("data-original-title");
-        console.log(value);
-        if(value != ""){
-            $.each(list,function(i){
-                $(this).attr("data-original-title","");
-            })
-        }else{
-            var ilist = $("a.star i");
-            var idlist = [];
-            $.each(ilist,function(i){
-                idlist[i] = $(this).attr("id");
-            })
+        fadedTip = !fadedTip;
 
-            $.each(list,function(i){
-                $(this).attr("data-original-title",website_url[idlist[i]]);
-            })
-        }
+        if(fadedTip) hide_tip();
+        else show_tip();       
     })
+    function hide_tip(){
+        var list = $("div.label-info");
+        $.each(list,function(i){
+        var list = $("div.label-info");
+            $(this).attr("data-original-title","");
+        })
+    }
+    function show_tip(){
+        var list = $("div.label-info");
+        var ilist = $("a.star i");
+        var idlist = [];
+        $.each(ilist,function(i){
+            idlist[i] = $(this).attr("id");
+        })
+
+        $.each(list,function(i){
+            $(this).attr("data-original-title",website_url[idlist[i]]);     
+        })
+    }
 
 
     //换肤(左侧导航栏)
@@ -2663,12 +2704,16 @@
 
     //初始收藏  先清空 再重新写入
     function init_collect(collects){
+        if(fadedLabel == true) $("p.overflowClip_2").show();
+
         $("div#divCollect").html("<div class=\"row\"></div>");
 
         for(var i=0; i<collects.length; i++){
             insert_collect(collects[i]);
             init_star(collects[i]);
         }
+
+        if(fadedLabel == true) $("p.overflowClip_2").hide();
     }
 
     //初始 点亮已收藏星
@@ -2680,8 +2725,7 @@
 
     //插入收藏夹
     function insert_collect(starId){
-        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a href=\"#\" class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star-o\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
-
+        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star-o\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
 
         var lastRow = $("div#divCollect div.row").last();
         lastRow.html(lastRow.html() + insertText);
@@ -2736,6 +2780,26 @@
 
     }
 
+
+    //申请添加新网站
+    function apply_site(){
+        //后台操作
+    }
+
+    $("#field-site,#field-url,#field-title").bind("keyup",function(event){
+        var name = $('#field-site').val();
+        var url = $('#field-url').val();
+        var title = $('#field-title').val();
+        if(name.match(/^\s*$/) || url.match(/^\s*$/) || title.match(/^\s*$/)){
+            $("#applysite-btn").addClass("disabled");
+            return false;
+        }else{
+            $("#applysite-btn").removeClass("disabled");
+            return true;
+        }
+
+    })
+
 </script>
 <!-- Bottom Scripts -->
 
@@ -2747,7 +2811,7 @@
 <!-- JavaScripts initializations and stuff -->
 <script src="js/xenon-custom.js"></script>
 
-
+<!--轮播图自动播放间隔-->
 <script>
     $('.carousel').carousel({
         interval: 2000

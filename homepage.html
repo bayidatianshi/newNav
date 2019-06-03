@@ -104,6 +104,10 @@
 
         var init_content_title;
 
+        var fadedLabel = false;
+        var fadedStar = false;
+        var fadedTip = false;
+
         //...
 
         $(function(){
@@ -138,8 +142,8 @@
                 };
                 site_dsp = {
                 	"哔哩哔哩": "弹幕视频",
-                	"W3school": "",
-                	"Git教程": "",
+                	"W3school": "111",
+                	"Git教程": "222",
                 	"Github": "",
                 	"牛客网": "",
                 	"慕课网": "",
@@ -460,7 +464,7 @@
                         <div class="row"> 
                             <div class="col-md-12"> 
                                 <div class="form-group"> 
-                                    <label for="field-3" class="control-label">网址</label> 
+                                    <label for="field-2" class="control-label">网址</label> 
                                     <input type="text" class="form-control" id="field-url" placeholder="www.xxx..."> 
                                 </div> 
                             </div> 
@@ -468,7 +472,7 @@
                         <div class="row"> 
                             <div class="col-md-12"> 
                                 <div class="form-group no-margin"> 
-                                    <label for="field-7" class="control-label">描述</label> 
+                                    <label for="field-3" class="control-label">描述</label> 
                                     <textarea class="form-control autogrow" id="field-dsp" placeholder="Write something about the website..." style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 104px;"></textarea> 
                                 </div> 
                             </div> 
@@ -555,13 +559,14 @@
 
     //英文标签淡入淡出
     $("#enLabel").click(function(e){
+        fadedLabel = !fadedLabel;
         $("p.overflowClip_2").fadeToggle(800);
-
     });
 
 
     //隐藏/显示 星
     $("#collectStar").click(function(e){
+        fadedStar = !fadedStar;
         $("a.star").toggle();
         $("i.linecons-trash").toggle();
     })
@@ -569,25 +574,33 @@
 
     //打开/关闭提示条
     $("#opTooltip").click(function(e){
-        var list = $("div.label-info");
-        var value = list.attr("data-original-title");
-        console.log(value);
-        if(value != ""){
-            $.each(list,function(i){
-                $(this).attr("data-original-title","");
-            })
-        }else{
-            var ilist = $("a.star i");
-            var idlist = [];
-            $.each(ilist,function(i){
-                idlist[i] = $(this).attr("id");
-            })
+        fadedTip = !fadedTip;
 
-            $.each(list,function(i){
-                $(this).attr("data-original-title",website_url[idlist[i]]);
-            })
-        }
+        if(fadedTip) hide_tip();
+        else show_tip();       
     })
+    function hide_tip(){
+        var list = $("div.label-info");
+        $.each(list,function(i){
+        var list = $("div.label-info");
+            $(this).attr("data-original-title","");
+        })
+    }
+    function show_tip(){
+        var list = $("div.label-info");
+        var ilist = $("a.star i");
+        var idlist = [];
+        $.each(ilist,function(i){
+            idlist[i] = $(this).attr("id");
+        })
+
+        $.each(list,function(i){
+            if(website_url[idlist[i]])
+                $(this).attr("data-original-title",website_url[idlist[i]]);
+            else
+                $(this).attr("data-original-title",site_url[idlist[i]]);
+        })
+    }
 
 
     //换肤(左侧导航栏)
@@ -634,11 +647,15 @@
 
     //设置左侧菜单、标题
     function set_title(title){
+        if(fadedStar == true) $("i.linecons-trash").show();
+
     	var menu = $("#main-menu");
     	menu.html(menu.html() + "<li><a href=\"#" + title + "\" class=\"smooth\"><i class=\"linecons-attach\"></i><span class=\"title\">" + title + 
     		"</span><i class=\"linecons-trash\" onclick=\"delete_title('" + title + "')\"></i></a></li>");
     	var contents = $("div#contents");
     	contents.html(contents.html() + "<h4 class=\"text-gray\" id=\"" + title + "\" style=\"cursor:pointer;\" onclick=\"CollapseOrExpand(\'h4#" + title + "+div\',\'h4#" + title + " i.updownTag\')\"><i class=\"linecons-tag\"></i>" + title + "<a class=\"addsite\" title=\"添加网站\" onclick=\"event.cancelBubble = true; get_site('" + title + "')\"><i class=\"fa-pencil\"></i></a><i class=\"fa-angle-down updownTag\"></i></h4><div id=\"" + title + "\"></div><br />");
+
+        if(fadedStar == true) $("i.linecons-trash").hide();
     }
 
 
@@ -675,6 +692,9 @@
 
     //设置各网址
     function set_site(title, sites){
+        if(fadedLabel == true) $("p.overflowClip_2").show();
+        if(fadedStar == true) $("a.star").show();
+
         var divSelector = "div#" + title;
         var insertText = "<div class=\"row\">";
         for(var i=1; i <= sites.length; i++){
@@ -685,10 +705,14 @@
         }
         insertText += "</div>";
         $(divSelector).html(insertText);
+
+        if(fadedLabel == true) $("p.overflowClip_2").hide();
+        if(fadedStar == true) $("a.star").hide();
     }
+
     //插入代码块
     function insert_site(title, site){
-        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + site_url[site] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + site_url[site] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a href=\"#\" class=\"xe-user-name overflowClip_1\"><strong>" + site + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; delete_site('" + title + "', '" + site +"')\"><i class=\"fa-star\" id=\"" + site + "\"></i></a></a><p class=\"overflowClip_2\">" + site_dsp[site] + "</p></div></div></div></div>";
+        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + site_url[site] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + site_url[site] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a class=\"xe-user-name overflowClip_1\"><strong>" + site + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; delete_site('" + title + "', '" + site +"')\"><i class=\"fa-star\" id=\"" + site + "\"></i></a></a><p class=\"overflowClip_2\">" + site_dsp[site] + "</p></div></div></div></div>";
         return insertText;
     }
 
@@ -768,17 +792,21 @@
 
     //初始收藏  先清空 再重新写入
     function init_collect(collects){
+        if(fadedLabel == true) $("p.overflowClip_2").show();
+
         $("div#divCollect").html("<div class=\"row\"></div>");
 
         for(var i=0; i<collects.length; i++){
             insert_collect(collects[i]);
         }
+
+        if(fadedLabel == true) $("p.overflowClip_2").hide();
     }
 
 
     //插入收藏夹
     function insert_collect(starId){
-        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a href=\"#\" class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
+        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
 
         var lastRow = $("div#divCollect div.row").last();
         lastRow.html(lastRow.html() + insertText);
@@ -792,16 +820,11 @@
 
     //点击星星 取消收藏-事件
     function collect(starId){
-        if(!logon){
-            alert("请先登录");
-            return;
-        }
-
         var starSelector = "[id= " + starId + "]";
 
         //取消收藏
 
-        //...
+        //后台操作
 
         //collections删除
         var position = collections.indexOf(starId);
