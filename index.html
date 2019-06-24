@@ -1,11 +1,2771 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
+
 <head>
-    <title>首页</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0">  
+    <title>SCNU_Nav - 华师新导航</title>
+    <meta name="keywords" content="华南师范大学,新站点导航">
+    <meta name="description" content="SCNU_Nav - 华师新导航，支持用户自定义、编辑，收藏，增加校园学生内容和推荐页">
+    <link rel="shortcut icon" href="images/favicon.png">
+    <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic"> -->
+    <link rel="stylesheet" href="css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/xenon-core.css">
+    <link rel="stylesheet" href="css/xenon-components.css">
+    <link rel="stylesheet" href="css/xenon-skins.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/website-data.js"></script>   <!-- 网址 名称、英文 数据 -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style type="text/css">
+        .search-bar-zyf{
+            background: #f3f3f3;
+            margin-top: 25px;
+            height: 30px;
+            width:200px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            border: 0;
+            padding-left: 10px;
+            font-size: 12px;
+            outline:none
+        }
+        .search-button-zyf{
+            background: #f3f3f3;
+            margin-top: 25px;
+            height: 30px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            border: 0;
+            font-size: 12px;
+            outline:none;
+            color : grey;
+        }
+        /*手机端*/
+        @media screen and (max-width: 768px){
+            .search-bar-zyf, .search-button-zyf{
+                margin-left: 10px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+            
+        }
+        a.star{
+            float: right;
+            padding: 0px 10px;
+        }
+        a.star i.fa-star-o{
+            font-size: 35px;
+            color: #C0C0C0;
+
+        }
+        a.star i.fa-star{
+            font-size: 35px;
+            color: yellow;
+        }
+
+        ul.topul li a{
+            line-height: 50px; 
+            padding: 20px 22px;
+            font-size: 15px;
+        }
+
+        li.colorsli a{
+            text-align: center;
+        }
+        ul.colorsul{
+            display:inline-block;
+            white-space:nowrap;
+        }
+        ul.colorsul li{
+            display:inline-block;
+            margin:10px -5px 0px 5px;
+        }
+        ul.colorsul a{
+            width:70px;
+            height:55px;
+            border: solid 1px grey;
+        }
+
+        i.linecons-tag{
+            margin-right: 7px;
+        }
+        i.updownTag{
+            float: right;
+        }
+    </style>
+
+    <!-- 初始操作(假装已登录测试) -->
+    <script type="text/javascript">
+        var logon = false; //登录状态
+        var userName = "";
+        var collections;
+
+        var fadedLabel = false;
+        var fadedStar = false;
+        var fadedTip = false;
+
+        //...
+
+        $(function(){
+            //...
+            logon = true;
+            var info; //向后台获取用户信息
+            userName = ""; //info.user.name
+            if(logon){
+                userName = "John";
+				//-------------------------------------------------------------------------------
+				//这里需要先检测系统是否存在cookie，存在，那么下面的collection用cookie来初始化，否则使用默认的初始化方法
+				//-------------------------------------------------------------------------------
+				if(check_cookie_exist() == false)
+					collections = ["图书馆","计算机学院","教务管理系统","纪委监察处","组织部","砺儒云课堂","学者网"];
+				else{
+					collections = get_all_collections();
+				}
+				
+				
+                $("#userNameSpan").html(userName);
+                $("li.afterLogin").show();
+                $("li.beforeLogin").hide();
+
+
+                //初始收藏
+                init_collect(collections);
+
+            }
+            else{
+                $("li.afterLogin").hide();
+                $("li.beforeLogin").show();
+            }
+        })
+
+    </script>
+
+
+
 </head>
-<body>
-<div>
-    <h1>Hello world</h1>
+
+<body class="page-body">
+
+<!-- skin-white -->
+<div class="page-container">
+    <!-- 左侧导航栏 -->
+    <div class="sidebar-menu toggle-others fixed">
+        <div class="sidebar-menu-inner">
+            <header class="logo-env">
+                <!-- logo -->
+                <!-- <div class="logo">
+                    <a href="index.html" class="logo-expanded">
+                        <img src="./images/logo@2x.png" width="100%" alt="" />
+                    </a>
+                    <a href="index.html" class="logo-collapsed">
+                        <img src="./images/logo-collapsed@2x.png" width="40" alt="" />
+                    </a>
+                </div> -->
+                <div class="mobile-menu-toggle visible-xs">
+                    <a data-toggle="user-info-menu">
+                        <i class="linecons-search"></i>
+                    </a>
+                    <a data-toggle="mobile-menu">
+                        <i class="fa-bars"></i>
+                    </a>
+                </div>
+            </header>
+            <ul id="main-menu" class="main-menu mobile-is-visible">
+                
+                <li>
+                    <a href="#推荐" class="smooth">
+                        <i class="linecons-heart"></i>
+                        <span class="title">推荐</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#我的收藏" class="smooth">
+                        <i class="linecons-star"></i>
+                        <span class="title">我的收藏</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="linecons-paper-plane"></i>
+                        <span class="title">学校</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#管理机构" class="smooth">
+                                <span class="title">管理机构</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#教学机构" class="smooth">
+                                <span class="title">教学机构</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#科研机构" class="smooth">
+                                <span class="title">科研机构</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#教辅机构" class="smooth">
+                                <span class="title">教辅机构</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#学术机构" class="smooth">
+                                <span class="title">学术机构</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#校园网应用" class="smooth">
+                                <span class="title">校园网应用</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#学生服务" class="smooth">
+                                <span class="title">学生服务</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#其他" class="smooth">
+                                <span class="title">其他</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="linecons-graduation-cap"></i>
+                        <span class="title">学生</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#社团" class="smooth">
+                                <span class="title">社团</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                
+
+                <li>
+                    <a href="homepage.html">
+                        <i class="linecons-user"></i>
+                        <span class="title">个人主页</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="about.html" target="_blank">
+                        <i class="linecons-lightbulb"></i>
+                        <span class="title">关于本站</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- 顶部工具栏 -->
+        <nav class="navbar user-info-navbar" role="navigation">
+            <!-- User Info, Notifications and Menu Bar -->
+            <!-- Left links for user info navbar -->
+            <ul class="user-info-menu left-links list-inline list-unstyled">
+                <!-- 缩略左侧导航栏 -->
+                <li class="hidden-sm hidden-xs hover-line">
+                    <a data-toggle="sidebar">
+                        <i class="fa-bars"></i>
+                    </a>
+                </li>
+                <!-- 搜索 -->
+                <li class="search-form hover-line">
+                    <input type="text" autocomplete="off" id="search_key" class=" search-bar-zyf" placeholder="请输关键字" />
+                    <!-- <input type="submit" name="submit" class="search-button-zyf" value="搜索" onclick="jump()" /> -->
+                    <button class="search-button-zyf" onclick="jump()">搜索</button>
+                </li>
+                
+            </ul>
+
+
+        </nav>
+
+        <!-- 推荐 -->
+        <h4 class="text-gray" id="推荐" style="cursor:pointer;" onclick="CollapseOrExpand('h4#推荐+div','h4#推荐 i.updownTag')">
+            <i class="linecons-tag"></i>推荐
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="width: 100%;height: 200px; margin: 0 auto">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="0"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active" style="width: 100%;height: 200px">
+                    <a id="item_1_link" href="http://lib.scnu.edu.cn/">
+                    <img src="assets/img/test0.jpg" alt="...">
+                    <div class="carousel-caption">
+                        <h1 id="item_1_tittle">图书馆</h1>
+                    </div>
+                    </a>
+                </div>
+                <div class="item" style="width: 100%;height: 200px">
+                    <a id="item_2_link" href="http://cs.scnu.edu.cn/">
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_2_tittle">计算机学院</h1>
+                        </div>
+                    </a>
+                </div>
+                <div class="item" style="width: 100%;height: 200px">
+                    <a id="item_3_link" href="http://jwc.scnu.edu.cn/">
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_3_tittle">教务系统</h1>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <!-- 我的收藏 -->
+        <h4 class="text-gray" id="我的收藏" style="cursor:pointer;" onclick="CollapseOrExpand('h4#我的收藏+div','h4#我的收藏 i.updownTag')">
+            <i class="linecons-tag"></i>我的收藏
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div id="divCollect">
+
+        </div>
+        <br />
+
+        <!-- 管理机构 -->
+        <h4 class="text-gray" id="管理机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#管理机构+div','h4#管理机构 i.updownTag')">
+            <i class="linecons-tag"></i>管理机构
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://office.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://office.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>党委办公室、校长办公室</strong>
+                                    <!-- 收藏星 -->
+                                    <a class="star" onclick="event.cancelBubble = true; collect('党委办公室、校长办公室')">
+                                        <i class="fa-star-o" id="党委办公室、校长办公室"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">President's Office of SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://hsdj.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://hsdj.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>组织部</strong>
+                                    <!-- 收藏星 -->
+                                    <a class="star" onclick="event.cancelBubble = true; collect('组织部')">
+                                        <i class="fa-star-o" id="组织部"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Organization Department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jwjc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jwjc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>纪委监察处</strong>
+                                    <!-- 收藏星 -->
+                                    <a class="star" onclick="event.cancelBubble = true; collect('纪委监察处')">
+                                        <i class="fa-star-o" id="纪委监察处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Commission for Discipline Inspection,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://rsc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://rsc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>人事处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('人事处')">
+                                        <i class="fa-star-o" id="人事处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Human Resources Department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://xsb.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://xsb.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>学生工作部（处）、人民武装部</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('学生工作部（处）、人民武装部')">
+                                        <i class="fa-star-o" id="学生工作部（处）、人民武装部"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Student Affairs Department, people's armed forces department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jw.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jw.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教务处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教务处')">
+                                        <i class="fa-star-o" id="教务处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Dean's Office,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://io.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://io.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>国际交流合作处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('国际交流合作处')">
+                                        <i class="fa-star-o" id="国际交流合作处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Office Of International Exchange and Cooperation,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jjc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jjc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>基建处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('基建处')">
+                                        <i class="fa-star-o" id="基建处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Capital Construction Department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://bwc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://bwc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>保卫处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('保卫处')">
+                                        <i class="fa-star-o" id="保卫处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">BWC,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://kjc.scnu.edu.cn/business/website/mainPageIndex.do', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://kjc.scnu.edu.cn/business/website/mainPageIndex.do">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>科技处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('科技处')">
+                                        <i class="fa-star-o" id="科技处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Technology Department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://zkc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://zkc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>招生考试处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('招生考试处')">
+                                        <i class="fa-star-o" id="招生考试处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Entrance Examination Committee Office</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://gdsz.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://gdsz.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>省高校师资培训中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('省高校师资培训中心')">
+                                        <i class="fa-star-o" id="省高校师资培训中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Guangdong Teachers Training Center For Institutions of Higher Learning</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://yjsy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://yjsy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>研究生院（处）</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('研究生院（处）')">
+                                        <i class="fa-star-o" id="研究生院（处）"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Graduate School,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://skc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://skc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>社科处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('社科处')">
+                                        <i class="fa-star-o" id="社科处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Office of Humanities and Social Sciences Division,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://hscw.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://hscw.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>财务处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('财务处')">
+                                        <i class="fa-star-o" id="财务处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Finance Department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://amd.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://amd.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>资产管理处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('资产管理处')">
+                                        <i class="fa-star-o" id="资产管理处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Asset Management Office,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://szhq.scnu.edu.cn/dsh', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://szhq.scnu.edu.cn/dsh">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>后勤管理处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('后勤管理处')">
+                                        <i class="fa-star-o" id="后勤管理处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Logistics Management Mffice,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://zijingwang.org/xtw', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://zijingwang.org/xtw">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>校团委</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('校团委')">
+                                        <i class="fa-star-o" id="校团委"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Youth League,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://gh.scnu.edu.cn/aprescms', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://gh.scnu.edu.cn/aprescms">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>校工会</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('校工会')">
+                                        <i class="fa-star-o" id="校工会"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Trade Union,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://fzghb.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://fzghb.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>发展规划处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('发展规划处')">
+                                        <i class="fa-star-o" id="发展规划处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Development and Planning Department,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://shfw.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://shfw.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>社会服务处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('社会服务处')">
+                                        <i class="fa-star-o" id="社会服务处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Social Service,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ltb.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ltb.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>离退休工作办公室</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('离退休工作办公室')">
+                                        <i class="fa-star-o" id="离退休工作办公室"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Retired Work Office,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://portal.scnu.edu.cn/wps/portal/sjc', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://portal.scnu.edu.cn/wps/portal/sjc">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>审计处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('审计处')">
+                                        <i class="fa-star-o" id="审计处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Audit Office,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jgdw.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jgdw.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>机关党委</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('机关党委')">
+                                        <i class="fa-star-o" id="机关党委"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Party Committee,SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 管理机构 -->
+
+
+        <!-- 教学机构 -->
+        <h4 class="text-gray" id="教学机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#教学机构+div','h4#教学机构 i.updownTag')">
+            <i class="linecons-tag"></i>教学机构
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://wxy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://wxy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>文学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('文学院')">
+                                        <i class="fa-star-o" id="文学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Literature</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://lswh.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://lswh.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>历史文化学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('历史文化学院')">
+                                        <i class="fa-star-o" id="历史文化学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of History and Culture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://fxy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://fxy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>法学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('法学院')">
+                                        <i class="fa-star-o" id="法学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Law</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://zhx.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://zhx.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>政治与行政学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('政治与行政学院')">
+                                        <i class="fa-star-o" id="政治与行政学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Politics and Administration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://mks.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://mks.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>马克思主义学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('马克思主义学院')">
+                                        <i class="fa-star-o" id="马克思主义学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Marxism</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://em.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://em.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>经济与管理学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('经济与管理学院')">
+                                        <i class="fa-star-o" id="经济与管理学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Economics and Management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jky.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jky.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教育科学学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教育科学学院')">
+                                        <i class="fa-star-o" id="教育科学学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://psy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://psy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>心理学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('心理学院')">
+                                        <i class="fa-star-o" id="心理学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Psychology</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sfs.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sfs.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>外国语言文化学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('外国语言文化学院')">
+                                        <i class="fa-star-o" id="外国语言文化学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Foreign Studies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ggy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ggy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>公共管理学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('公共管理学院')">
+                                        <i class="fa-star-o" id="公共管理学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Public Administration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sport.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sport.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>体育科学学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('体育科学学院')">
+                                        <i class="fa-star-o" id="体育科学学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Physical Education and Sports Science</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://life.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://life.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>生命科学学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('生命科学学院')">
+                                        <i class="fa-star-o" id="生命科学学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Life Sciences</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://site.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://site.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教育信息技术学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教育信息技术学院')">
+                                        <i class="fa-star-o" id="教育信息技术学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Information Technology in Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ioe.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ioe.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>信息光电子科技学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('信息光电子科技学院')">
+                                        <i class="fa-star-o" id="信息光电子科技学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Information and Optoelectronic Science and Engineering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.gdou.com', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.gdou.com">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>网络教育学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('网络教育学院')">
+                                        <i class="fa-star-o" id="网络教育学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Network Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://cce.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://cce.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>继续教育学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('继续教育学院')">
+                                        <i class="fa-star-o" id="继续教育学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">College of Continuing Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://physics.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://physics.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>物理与电信工程学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('物理与电信工程学院')">
+                                        <i class="fa-star-o" id="物理与电信工程学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Physics and Telecommunications Engineering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://maths.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://maths.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>数学科学学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('数学科学学院')">
+                                        <i class="fa-star-o" id="数学科学学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Mathematical Sciences</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sce.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sce.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>化学与环境学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('化学与环境学院')">
+                                        <i class="fa-star-o" id="化学与环境学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Chemistry and Environment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://cs.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://cs.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>计算机学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('计算机学院')">
+                                        <i class="fa-star-o" id="计算机学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Computer Science</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://geography.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://geography.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>地理科学学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('地理科学学院')">
+                                        <i class="fa-star-o" id="地理科学学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Geography</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://music.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://music.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>音乐学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('音乐学院')">
+                                        <i class="fa-star-o" id="音乐学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Music</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://aol.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://aol.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>美术学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('美术学院')">
+                                        <i class="fa-star-o" id="美术学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Fine Arts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jjy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jjy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>基础教育培训与研究院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('基础教育培训与研究院')">
+                                        <i class="fa-star-o" id="基础教育培训与研究院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Professional Development and Research on Primary and Secondary Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://stm.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://stm.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>旅游管理学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('旅游管理学院')">
+                                        <i class="fa-star-o" id="旅游管理学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Tourism Management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://cicgz.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://cicgz.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>国际文化学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('国际文化学院')">
+                                        <i class="fa-star-o" id="国际文化学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">College of International Culture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ibc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ibc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>国际商学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('国际商学院')">
+                                        <i class="fa-star-o" id="国际商学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">International Business College</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ss.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ss.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>软件学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('软件学院')">
+                                        <i class="fa-star-o" id="软件学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Software</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://cswh.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://cswh.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>城市文化学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('城市文化学院')">
+                                        <i class="fa-star-o" id="城市文化学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Urban Culture</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://phoenix.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://phoenix.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>凤凰国际学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('凤凰国际学院')">
+                                        <i class="fa-star-o" id="凤凰国际学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Phoenix International College</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://zyjy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://zyjy.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>职业教育学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('职业教育学院')">
+                                        <i class="fa-star-o" id="职业教育学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Vocational Education College</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://es.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://es.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>创业学院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('创业学院')">
+                                        <i class="fa-star-o" id="创业学院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School of Entrepreneurship</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ibrr.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ibrr.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>脑科学与康复医学研究院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('脑科学与康复医学研究院')">
+                                        <i class="fa-star-o" id="脑科学与康复医学研究院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Institute for Brain Research and Rehabilitation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 教学机构 -->
+
+
+        <!-- 科研机构 -->
+        <h4 class="text-gray" id="科研机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#科研机构+div','h4#科研机构 i.updownTag')">
+            <i class="linecons-tag"></i>科研机构
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://esi.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://esi.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教科所</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教科所')">
+                                        <i class="fa-star-o" id="教科所"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Institute of Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://laser.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://laser.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>激光生命科学实验室</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('激光生命科学实验室')">
+                                        <i class="fa-star-o" id="激光生命科学实验室"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Key Laboratory of Laser Life Science, Ministry of Education</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sleb.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sleb.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>经济行为科学重点实验室</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('经济行为科学重点实验室')">
+                                        <i class="fa-star-o" id="经济行为科学重点实验室"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Key Laboratory of Economic Behavioral Science</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sky.scnu.edu.cn/zdsys/zwfy/keylab2004/index0.htm', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sky.scnu.edu.cn/zdsys/zwfy/keylab2004/index0.htm">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>植物发育生物工程实验室</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('植物发育生物工程实验室')">
+                                        <i class="fa-star-o" id="植物发育生物工程实验室"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Plant Development Bioengineering Laboratory</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://iomt.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://iomt.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>光电子材料与技术研究所</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('光电子材料与技术研究所')">
+                                        <i class="fa-star-o" id="光电子材料与技术研究所"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Institute of Optoelectronic Materials and Technology</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://202.116.32.249/gxjs', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://202.116.32.249/gxjs">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>光子信息技术实验室</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('光子信息技术实验室')">
+                                        <i class="fa-star-o" id="光子信息技术实验室"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Photonic Information Technology Laboratory</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://hnjj.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://hnjj.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华南市场经济研究中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华南市场经济研究中心')">
+                                        <i class="fa-star-o" id="华南市场经济研究中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">South China Market Economy Research Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://aoe.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://aoe.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华南先进光电子研究院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华南先进光电子研究院')">
+                                        <i class="fa-star-o" id="华南先进光电子研究院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">South China Advanced Photonics Research Institute</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://biop.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://biop.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>生物光子学研究院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('生物光子学研究院')">
+                                        <i class="fa-star-o" id="生物光子学研究院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Biophotonics Institute</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://curds.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://curds.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>城市与区域发展研究中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('城市与区域发展研究中心')">
+                                        <i class="fa-star-o" id="城市与区域发展研究中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Urban and Regional Development Research Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sportlab.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sportlab.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>运动科学实验教学示范中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('运动科学实验教学示范中心')">
+                                        <i class="fa-star-o" id="运动科学实验教学示范中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Sports Science Experimental Teaching Demonstration Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sssmcenter.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sssmcenter.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>系统科学与系统管理研究中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('系统科学与系统管理研究中心')">
+                                        <i class="fa-star-o" id="系统科学与系统管理研究中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Systems Science and Systems Management Research Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://coer.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://coer.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>光及电磁波研究中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('光及电磁波研究中心')">
+                                        <i class="fa-star-o" id="光及电磁波研究中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Optical and Electromagnetic Wave Research Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://cscg.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://cscg.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>文化产业与文化地理研究中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('文化产业与文化地理研究中心')">
+                                        <i class="fa-star-o" id="文化产业与文化地理研究中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Cultural Industry and Cultural Geography Research Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 科研机构 -->
+
+
+        <!-- 教辅机构 -->
+        <h4 class="text-gray" id="教辅机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#教辅机构+div','h4#教辅机构 i.updownTag')">
+            <i class="linecons-tag"></i>教辅机构
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://nc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://nc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>网络中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('网络中心')">
+                                        <i class="fa-star-o" id="网络中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Network Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://lib.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://lib.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>图书馆</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('图书馆')">
+                                        <i class="fa-star-o" id="图书馆"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Library</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://dag.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://dag.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>档案馆</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('档案馆')">
+                                        <i class="fa-star-o" id="档案馆"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Archives</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://atc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://atc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>分析测试中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('分析测试中心')">
+                                        <i class="fa-star-o" id="分析测试中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Analytical test center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ctld.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ctld.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教师发展中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教师发展中心')">
+                                        <i class="fa-star-o" id="教师发展中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Teacher development center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 教辅机构 -->
+
+
+        <!-- 学术机构 -->
+        <h4 class="text-gray" id="学术机构" style="cursor:pointer;" onclick="CollapseOrExpand('h4#学术机构+div','h4#学术机构 i.updownTag')">
+            <i class="linecons-tag"></i>学术机构
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://journal.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://journal.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华南师大学报</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华南师大学报')">
+                                        <i class="fa-star-o" id="华南师大学报"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Journal of SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.chinatyxk.com', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.chinatyxk.com">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>体育学刊</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('体育学刊')">
+                                        <i class="fa-star-o" id="体育学刊"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Sports Journal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	            <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.scholat.com/', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.scholat.com/">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>学者网</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('学者网')">
+                                        <i class="fa-star-o" id="学者网"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Scholat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	            <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('https://moodle.scnu.edu.cn/', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="https://moodle.scnu.edu.cn/">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>砺儒云课堂</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('砺儒云课堂')">
+                                        <i class="fa-star-o" id="砺儒云课堂"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Liru Online Course</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 学术机构 -->
+
+
+        <!-- 校园网应用 -->
+        <h4 class="text-gray" id="校园网应用" style="cursor:pointer;" onclick="CollapseOrExpand('h4#校园网应用+div','h4#校园网应用 i.updownTag')">
+            <i class="linecons-tag"></i>校园网应用
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://wiki.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://wiki.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华师百科</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华师百科')">
+                                        <i class="fa-star-o" id="华师百科"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">WIKI.SCNU</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://bbs.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://bbs.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华师新陶园论坛</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华师新陶园论坛')">
+                                        <i class="fa-star-o" id="华师新陶园论坛"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Huashi New Ceramic Garden Forum</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://pt.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://pt.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华师陶园PT</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华师陶园PT')">
+                                        <i class="fa-star-o" id="华师陶园PT"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Huashi Taoyuan PT</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://mail.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://mail.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>邮箱服务</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('邮箱服务')">
+                                        <i class="fa-star-o" id="邮箱服务"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Mailbox service</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sso.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sso.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>综合服务平台</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('综合服务平台')">
+                                        <i class="fa-star-o" id="综合服务平台"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Integrated service platform</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://app.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://app.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>移动平台</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('移动平台')">
+                                        <i class="fa-star-o" id="移动平台"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Mobile Platform</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://sso.scnu.edu.cn/selfservice', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://sso.scnu.edu.cn/selfservice">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>校园网自助服务平台</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('校园网自助服务平台')">
+                                        <i class="fa-star-o" id="校园网自助服务平台"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Campus network self-service platform</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://222.200.129.36', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://222.200.129.36">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>校园视频网</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('校园视频网')">
+                                        <i class="fa-star-o" id="校园视频网"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Campus video network</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://statics.scnu.edu.cn/ruijie/index.htm', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://statics.scnu.edu.cn/ruijie/index.htm">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>锐捷客户端下载</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('锐捷客户端下载')">
+                                        <i class="fa-star-o" id="锐捷客户端下载"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Ruijie client download</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 校园网应用 -->
+
+
+        <!-- 学生服务 -->
+        <h4 class="text-gray" id="学生服务" style="cursor:pointer;" onclick="CollapseOrExpand('h4#学生服务+div','h4#学生服务 i.updownTag')">
+            <i class="linecons-tag"></i>学生服务
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jwc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jwc.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教务管理系统</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教务管理系统')">
+                                        <i class="fa-star-o" id="教务管理系统"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Educational Management System</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://222.201.93.5:211', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://222.201.93.5:211">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教学信息查询系统</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教学信息查询系统')">
+                                        <i class="fa-star-o" id="教学信息查询系统"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Teaching information inquiry system</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://ssp.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://ssp.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>学生工作信息管理系统</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('学生工作信息管理系统')">
+                                        <i class="fa-star-o" id="学生工作信息管理系统"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Student work information management system</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://202.116.47.190/course_center/index', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://202.116.47.190/course_center/index">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>课程中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('课程中心')">
+                                        <i class="fa-star-o" id="课程中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Course center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jw.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jw.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教务处</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教务处')">
+                                        <i class="fa-star-o" id="教务处"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Academic Affairs Office</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://lib.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://lib.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>图书馆</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('图书馆')">
+                                        <i class="fa-star-o" id="图书馆"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Library</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.scnuqg.com', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.scnuqg.com">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>勤工助学管理中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('勤工助学管理中心')">
+                                        <i class="fa-star-o" id="勤工助学管理中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Work-study management center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://career.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://career.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>学生就业指导中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('学生就业指导中心')">
+                                        <i class="fa-star-o" id="学生就业指导中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Student Employment Guidance Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.psyonline.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.psyonline.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>心理咨询研究中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('心理咨询研究中心')">
+                                        <i class="fa-star-o" id="心理咨询研究中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Counseling Research Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://stuu.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://stuu.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>学生会</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('学生会')">
+                                        <i class="fa-star-o" id="学生会"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Student Union</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 学生服务 -->
+
+        <!-- 其他 -->
+        <h4 class="text-gray" id="其他" style="cursor:pointer;" onclick="CollapseOrExpand('h4#其他+div','h4#其他 i.updownTag')">
+            <i class="linecons-tag"></i>其他
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jyfzzx.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jyfzzx.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教育发展中心</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教育发展中心')">
+                                        <i class="fa-star-o" id="教育发展中心"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Educational Development Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.gdgpo.gov.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.gdgpo.gov.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>电子化政府采购系统</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('电子化政府采购系统')">
+                                        <i class="fa-star-o" id="电子化政府采购系统"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Electronic government procurement system</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://yey.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://yey.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>华南师大附属幼儿园</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('华南师大附属幼儿园')">
+                                        <i class="fa-star-o" id="华南师大附属幼儿园"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">South China Normal University Affiliated Kindergarten</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://hospital.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://hospital.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>校医院</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('校医院')">
+                                        <i class="fa-star-o" id="校医院"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">School Hospital</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://geaa.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://geaa.scnu.edu.cn">
+                        <div class="xe-comment-entry">
+                            <a class="xe-user-img">
+                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
+                            </a>
+                            <div class="xe-comment">
+                                <a class="xe-user-name overflowClip_1">
+                                    <strong>教育审计协会</strong>
+                                    <a class="star" onclick="event.cancelBubble = true; collect('教育审计协会')">
+                                        <i class="fa-star-o" id="教育审计协会"></i>
+                                    </a>
+                                </a>
+                                <p class="overflowClip_2">Educational Audit Association</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!-- END 其他 -->
+
+        <!-- 社团 -->
+        <h4 class="text-gray" id="社团" style="cursor:pointer;" onclick="CollapseOrExpand('h4#社团+div','h4#社团 i.updownTag')">
+            <i class="linecons-tag"></i>社团
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+
+        </div>
+        <br />
+
+        
+
+        <!-- Main Footer -->
+        <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
+        <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
+        <!-- Or class "fixed" to  always fix the footer to the end of page -->
+        <footer class="main-footer sticky footer-type-1">
+            <div class="footer-inner">
+                <!-- Add your copyright text here -->
+                <div class="footer-text">
+                    &copy; 2019
+                    <a href="./about.html" target="_blank"><strong> SCNU_Nav </strong></a>
+                    <!--  - Purchase for only <strong>23$</strong> -->
+                </div>
+                <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
+                <div class="go-up">
+                    <a href="#管理机构" rel="go-top">
+                        <i class="fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
 </div>
+
+<!-- 锚点平滑移动 -->
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $(document).on('click', '.has-sub', function(){
+            var _this = $(this)
+            if(!$(this).hasClass('expanded')) {
+                setTimeout(function(){
+                    _this.find('ul').attr("style","")
+                }, 300);
+
+            } else {
+                $('.has-sub ul').each(function(id,ele){
+                    var _that = $(this)
+                    if(_this.find('ul')[0] != ele) {
+                        setTimeout(function(){
+                            _that.attr("style","")
+                        }, 300);
+                    }
+                })
+            }
+        })
+        $('.user-info-menu .hidden-sm').click(function(){
+            if($('.sidebar-menu').hasClass('collapsed')) {
+                $('.has-sub.expanded > ul').attr("style","")
+            } else {
+                $('.has-sub.expanded > ul').show()
+            }
+        })
+        $("#main-menu li ul li").click(function() {
+            $(this).siblings('li').removeClass('active'); // 删除其他兄弟元素的样式
+            $(this).addClass('active'); // 添加当前元素的样式
+        });
+        $("a.smooth").click(function(ev) {
+            ev.preventDefault();
+
+            public_vars.$mainMenu.add(public_vars.$sidebarProfile).toggleClass('mobile-is-visible');
+            ps_destroy();
+            $("html, body").animate({
+                scrollTop: $($(this).attr("href")).offset().top - 30
+            }, {
+                duration: 500,
+                easing: "swing"
+            });
+        });
+        return false;
+    });
+
+    var href = "";
+    var pos = 0;
+    $("a.smooth").click(function(e) {
+        $("#main-menu li").each(function() {
+            $(this).removeClass("active");
+        });
+        $(this).parent("li").addClass("active");
+        e.preventDefault();
+        href = $(this).attr("href");
+        pos = $(href).position().top - 30;
+    });
+
+    $('ul.left-links li.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeIn(0);
+    }, function() {
+        $(this).find('.dropdown-menu').stop(true, true).delay(0).fadeOut(0);
+    });
+
+
+    //英文标签淡入淡出
+    $("#enLabel").click(function(e){
+        fadedLabel = !fadedLabel;
+        $("p.overflowClip_2").fadeToggle(800);
+    });
+
+
+    //隐藏/显示收藏星
+    $("#collectStar").click(function(e){
+        $("a.star").toggle();
+    })
+
+
+    //打开/关闭提示条
+    $("#opTooltip").click(function(e){
+        fadedTip = !fadedTip;
+
+        if(fadedTip) hide_tip();
+        else show_tip();       
+    })
+    function hide_tip(){
+        var list = $("div.label-info");
+        $.each(list,function(i){
+        var list = $("div.label-info");
+            $(this).attr("data-original-title","");
+        })
+    }
+    function show_tip(){
+        var list = $("div.label-info");
+        var ilist = $("a.star i");
+        var idlist = [];
+        $.each(ilist,function(i){
+            idlist[i] = $(this).attr("id");
+        })
+
+        $.each(list,function(i){
+            $(this).attr("data-original-title",website_url[idlist[i]]);     
+        })
+    }
+
+
+    //换肤(左侧导航栏)
+    $('[data-set-skin]').on('click',function(ev){
+        ev.preventDefault();
+        var skin = $(this).attr('data-set-skin');
+        var skin_name = skin ? ('skin-' + skin) : '';
+        var body_classes = public_vars.$body.attr('class').replace(/ skin-[a-z]+/i, '');
+        public_vars.$body.attr('class',body_classes).addClass(skin_name);
+        //$.cookies('current-skin',skin,{expires:365});
+    });
+    //换肤(顶部工具栏)
+    $('[data-set-skin-horizontal]').on('click',function(ev){
+        ev.preventDefault();
+        var skin = $(this).attr('data-set-skin-horizontal');
+        var user_info_navbar_skin_name = skin ? ('user-info-navbar-skin-' + skin) : '';
+        var body_classes = public_vars.$body.attr('class').replace(/user-info-navbar-skin-[a-z]+/i, '');
+        public_vars.$body.attr('class',body_classes).addClass(user_info_navbar_skin_name);
+        //$.cookies('current-user-info-navbar-skin',skin,{expires:365});
+    });
+
+
+    //点击标题上下缩展
+    function CollapseOrExpand(divSelector,iconSelector){
+        $(divSelector).slideToggle("slow");
+        $(iconSelector).toggleClass('fa-angle-up');
+        $(iconSelector).toggleClass('fa-angle-down');
+    }
+
+    //初始收藏  先清空 再重新写入
+    function init_collect(collects){
+        if(fadedLabel == true) $("p.overflowClip_2").show();
+
+        $("div#divCollect").html("<div class=\"row\"></div>");
+
+        for(var i=0; i<collects.length; i++){
+            insert_collect(collects[i]);
+            init_star(collects[i]);
+        }
+
+        if(fadedLabel == true) $("p.overflowClip_2").hide();
+    }
+
+    //初始 点亮已收藏星
+    function init_star(starId){
+        var starSelector = "[id=" + starId + "]";
+        $(starSelector).removeClass('fa-star-o');
+        $(starSelector).addClass('fa-star');
+    }
+
+    //插入收藏夹
+    function insert_collect(starId){
+        var insertText = "<div class=\"col-sm-3\"><div class=\"xe-widget xe-conversations box2 label-info\" onclick=\"window.open('" + website_url[starId] + "', '_blank')\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"" + website_url[starId] + "\"><div class=\"xe-comment-entry\"><div class=\"xe-comment\"><a class=\"xe-user-name overflowClip_1\"><strong>" + starId + "</strong><a class=\"star\" onclick=\"event.cancelBubble = true; collect('" + starId +"')\"><i class=\"fa-star-o\" id=\"" + starId + "\"></i></a></a><p class=\"overflowClip_2\">" + website_english[starId] + "</p></div></div></div></div>";
+
+        var lastRow = $("div#divCollect div.row").last();
+        lastRow.html(lastRow.html() + insertText);
+
+        var cols = lastRow.children("div.col-sm-3");
+        if(cols.length == 4){
+            var d = $("div#divCollect");
+            d.html(d.html() + "<div class=\"row\"></div>");
+        }
+    }
+
+    //点击星星（取消）收藏-事件
+    function collect(starId){
+        if(!logon){
+            alert("请先登录");
+            return;
+        }
+
+        var starSelector = "[id= " + starId + "]";
+
+        //收藏
+        if($(starSelector).hasClass("fa-star-o")){
+
+            //...后台操作
+
+            //collections加入
+            collections.push(starId);
+
+            //更新收藏夹
+            init_collect(collections);
+
+            //改星星
+            $(starSelector).removeClass('fa-star-o');
+            $(starSelector).addClass('fa-star');
+        }
+        //取消收藏
+        else{
+
+            //...
+
+            //collections删除
+            var position = collections.indexOf(starId);
+            collections.splice(position,1);
+
+            //更新收藏夹
+            init_collect(collections);
+
+            //改星星
+            $(starSelector).removeClass('fa-star');
+            $(starSelector).addClass('fa-star-o');
+        }
+		//-----------------------------------------------------------------------------------
+		//这里不论是取消收藏、还是增加收藏，都需要再重新写一次cookie保证之后的刷新的时候页面能重新加载收藏的页面
+		//-----------------------------------------------------------------------------------
+		del_cookie();
+		//alert(document.cookie);
+		set_cookie(collections);
+		//alert(document.cookie);
+		
+    }
+	
+	function set_cookie(collects){
+	//将当前的收藏的网站保存到cookie中去
+		var base_name = "collect";
+		for(var i = 0; i < collects.length; i++){
+			document.cookie = base_name + i + "=" + collects[i]+";expires=Sun, 31 Dec 2027 12:00:00 UTC;path=/";
+		}
+	}
+	
+	function get_cookie(can_collect){
+	//根据an_collect获取cookie
+		var an_collect = can_collect + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i < ca.length; i++){
+			var c = ca[i];
+			while(c.charAt(0) == ' '){
+				c = c.substring(1);
+			}
+			if(c.indexOf(an_collect) == 0){
+				return c.substring(an_collect.length, c.length);
+			}
+		}
+		return "";
+	}
+	
+	function get_all_collections(){
+	//获取cookie中全部保存下来的收藏网址
+		var collections = [];
+		var search_index = 0;
+		var search_base_name = "collect";
+		while(true){
+			var an_collect = get_cookie(search_base_name + search_index);
+			if(an_collect == "")break;
+			collections.push(an_collect);
+			search_index ++;
+		}
+		return collections;
+	}
+	
+	function del_cookie(){
+	//删除cookie
+	//这里注意重要的事情：------------------------------------------------------------------
+	//要删除或者修改存在的cookie，需要保证修改或者删除的cookie的键值相同
+	//譬如原本的cookie文件：collect0=学者网;collect1=教务网;collect2=组织部;
+	//如果要修改这个cookie文件，要按如下步骤删除
+	//要点：每个分号;分割了一个cookie，即coolect0=学者网和collect1=教务网是两条cookie
+	//所以，删除的时候，
+	//必须要设置  collect0=学者网;expires='过期的时间';  这样才会删除 collect0=学者网 这条cookie
+	//必须要设置  collect1=教务网;expires='过期的时间';  这样才会删除 collect1=教务网 这条cookie
+	//--------------------------------------------------------------------------------------
+		var base_name = "collect";
+		var all_collections = get_all_collections();
+		for(var i = 0; i < all_collections.length; i++){
+			document.cookie = base_name + i + "=学者网;expires=Sun, 31 Dec 2017 12:00:00 UTC; path=/";
+		}
+	}
+	
+	function check_cookie_exist(){
+	//检查cookie是否存在
+		var an_collect = get_cookie("collect0");
+		if(an_collect == '')return false;
+		else return true;
+	}
+
+	
+    //申请添加新网站
+    function apply_site(){
+        //后台操作
+    }
+
+    $("#field-site,#field-url,#field-title").bind("keyup",function(event){
+        var name = $('#field-site').val();
+        var url = $('#field-url').val();
+        var title = $('#field-title').val();
+        if(name.match(/^\s*$/) || url.match(/^\s*$/) || title.match(/^\s*$/)){
+            $("#applysite-btn").addClass("disabled");
+            return false;
+        }else{
+            $("#applysite-btn").removeClass("disabled");
+            return true;
+        }
+
+    })
+
+</script>
+<!-- Bottom Scripts -->
+
+<script src="js/TweenMax.min.js"></script>
+<script src="js/resizeable.js"></script>
+<script src="js/joinable.js"></script>
+<script src="js/xenon-api.js"></script>
+<script src="js/xenon-toggles.js"></script>
+<!-- JavaScripts initializations and stuff -->
+<script src="js/xenon-custom.js"></script>
+
+<!--轮播图自动播放间隔-->
+<script>
+    $('.carousel').carousel({
+        interval: 2000
+    })
+</script>
+
+<!-- 搜索功能 -->
+<script type="text/javascript">
+    function getScrollTop(){
+        var scrollTop=0;
+        if(document.documentElement&&document.documentElement.scrollTop){
+            scrollTop=document.documentElement.scrollTop;
+        }else if(document.body){
+            scrollTop=document.body.scrollTop;
+        }
+        return scrollTop;
+    }   
+    function jump() {
+        var secrch_key = document.getElementById('search_key');
+         window.location.hash = "#";//不加的话，滑动回来再次搜索会失效
+         window.location.hash = "#" + secrch_key.value;
+         var y = getScrollTop();
+         console.log(y);
+         window.scrollTo(0,y-30);
+       }
+</script>
+
 </body>
+
 </html>
