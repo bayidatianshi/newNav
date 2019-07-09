@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0">  
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0">
     <title>SCNU_Nav - 华师新导航</title>
     <meta name="keywords" content="华南师范大学,新站点导航">
     <meta name="description" content="SCNU_Nav - 华师新导航，支持用户自定义、编辑，收藏，增加校园学生内容和推荐页">
@@ -28,6 +28,11 @@
 
 
     <style type="text/css">
+        .hint-div p{
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 26px;
+        }
         .search-bar-zyf{
             background: #f3f3f3;
             margin-top: 25px;
@@ -58,7 +63,7 @@
                 margin-top: 12px;
                 margin-bottom: 12px;
             }
-            
+
         }
         a.star{
             float: right;
@@ -75,7 +80,7 @@
         }
 
         ul.topul li a{
-            line-height: 50px; 
+            line-height: 50px;
             padding: 20px 22px;
             font-size: 15px;
         }
@@ -103,6 +108,9 @@
         i.updownTag{
             float: right;
         }
+        .default-hide{
+            display: none;
+        }
     </style>
 
     <!-- 初始操作(假装已登录测试) -->
@@ -122,18 +130,10 @@
             logon = true;
             var info; //向后台获取用户信息
             userName = ""; //info.user.name
+
             if(logon){
                 userName = "John";
-				//-------------------------------------------------------------------------------
-				//这里需要先检测系统是否存在cookie，存在，那么下面的collection用cookie来初始化，否则使用默认的初始化方法
-				//-------------------------------------------------------------------------------
-				if(check_cookie_exist() == false)
-					collections = ["图书馆","计算机学院","教务管理系统","纪委监察处","组织部","砺儒云课堂","学者网"];
-				else{
-					collections = get_all_collections();
-				}
-				
-				
+                collections = ["图书馆","计算机学院","教务管理系统","纪委监察处","组织部"];
                 $("#userNameSpan").html(userName);
                 $("li.afterLogin").show();
                 $("li.beforeLogin").hide();
@@ -147,8 +147,8 @@
                 $("li.afterLogin").hide();
                 $("li.beforeLogin").show();
             }
-            generateWelcomeWebRecommend();
-        });
+        })
+
     </script>
 
 
@@ -164,14 +164,13 @@
         <div class="sidebar-menu-inner">
             <header class="logo-env">
                 <!-- logo -->
-                <!-- <div class="logo">
+                <div class="logo">
                     <a href="index.html" class="logo-expanded">
-                        <img src="./images/logo@2x.png" width="100%" alt="" />
+                        <!-- <img src="./images/logo@2x.png" width="100%" alt="" /> -->
+                        <h2 style="color : skyblue; margin-top: -5px;">华师新导航</h2>
                     </a>
-                    <a href="index.html" class="logo-collapsed">
-                        <img src="./images/logo-collapsed@2x.png" width="40" alt="" />
-                    </a>
-                </div> -->
+                </div>
+
                 <div class="mobile-menu-toggle visible-xs">
                     <a data-toggle="user-info-menu">
                         <i class="linecons-search"></i>
@@ -182,7 +181,6 @@
                 </div>
             </header>
             <ul id="main-menu" class="main-menu mobile-is-visible">
-                
                 <li>
                     <a href="#推荐" class="smooth">
                         <i class="linecons-heart"></i>
@@ -257,20 +255,26 @@
                                 <span class="title">社团</span>
                             </a>
                         </li>
+
+                        <li>
+                            <a href="#学生项目" class="smooth">
+                                <span class="title">学生项目</span>
+                            </a>
+                        </li>
                     </ul>
+
                 </li>
 
-                
 
                 <li>
-                    <a href="homepage.html">
+                    <a href="homepage.php">
                         <i class="linecons-user"></i>
                         <span class="title">个人主页</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="about.html" target="_blank">
+                    <a onclick="show_about()">
                         <i class="linecons-lightbulb"></i>
                         <span class="title">关于本站</span>
                     </a>
@@ -297,7 +301,7 @@
                     <!-- <input type="submit" name="submit" class="search-button-zyf" value="搜索" onclick="jump()" /> -->
                     <button class="search-button-zyf" onclick="jump()">搜索</button>
                 </li>
-                
+
             </ul>
 
 
@@ -320,10 +324,10 @@
             <div class="carousel-inner" role="listbox">
                 <div class="item active" style="width: 100%;height: 200px">
                     <a id="item_1_link" href="http://lib.scnu.edu.cn/">
-                    <img src="assets/img/test0.jpg" alt="...">
-                    <div class="carousel-caption">
-                        <h1 id="item_1_tittle">图书馆</h1>
-                    </div>
+                        <img src="assets/img/test0.jpg" alt="...">
+                        <div class="carousel-caption">
+                            <h1 id="item_1_tittle">图书馆</h1>
+                        </div>
                     </a>
                 </div>
                 <div class="item" style="width: 100%;height: 200px">
@@ -370,7 +374,7 @@
             <i class="linecons-tag"></i>管理机构
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://office.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://office.scnu.edu.cn">
@@ -821,6 +825,7 @@
             </div>
         </div>
         <br />
+
         <!-- END 管理机构 -->
 
 
@@ -829,7 +834,7 @@
             <i class="linecons-tag"></i>教学机构
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://wxy.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://wxy.scnu.edu.cn">
@@ -1452,7 +1457,7 @@
             <i class="linecons-tag"></i>科研机构
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://esi.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://esi.scnu.edu.cn">
@@ -1723,7 +1728,7 @@
             <i class="linecons-tag"></i>教辅机构
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://nc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://nc.scnu.edu.cn">
@@ -1828,7 +1833,7 @@
             <i class="linecons-tag"></i>学术机构
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://journal.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://journal.scnu.edu.cn">
@@ -1866,42 +1871,6 @@
                         </div>
                     </div>
                 </div>
-	            <div class="col-sm-3">
-                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://www.scholat.com/', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://www.scholat.com/">
-                        <div class="xe-comment-entry">
-                            <a class="xe-user-img">
-                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
-                            </a>
-                            <div class="xe-comment">
-                                <a class="xe-user-name overflowClip_1">
-                                    <strong>学者网</strong>
-                                    <a class="star" onclick="event.cancelBubble = true; collect('学者网')">
-                                        <i class="fa-star-o" id="学者网"></i>
-                                    </a>
-                                </a>
-                                <p class="overflowClip_2">Scholat</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-	            <div class="col-sm-3">
-                    <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('https://moodle.scnu.edu.cn/', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="https://moodle.scnu.edu.cn/">
-                        <div class="xe-comment-entry">
-                            <a class="xe-user-img">
-                                <!-- <img src="./images/logos/producthunt.png" class="img-circle" width="40"> -->
-                            </a>
-                            <div class="xe-comment">
-                                <a class="xe-user-name overflowClip_1">
-                                    <strong>砺儒云课堂</strong>
-                                    <a class="star" onclick="event.cancelBubble = true; collect('砺儒云课堂')">
-                                        <i class="fa-star-o" id="砺儒云课堂"></i>
-                                    </a>
-                                </a>
-                                <p class="overflowClip_2">Liru Online Course</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <br />
@@ -1913,7 +1882,7 @@
             <i class="linecons-tag"></i>校园网应用
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://wiki.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://wiki.scnu.edu.cn">
@@ -2092,7 +2061,7 @@
             <i class="linecons-tag"></i>学生服务
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jwc.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jwc.scnu.edu.cn">
@@ -2288,7 +2257,7 @@
             <i class="linecons-tag"></i>其他
             <i class="fa-angle-down updownTag"></i>
         </h4>
-        <div>
+        <div class="default-hide">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="xe-widget xe-conversations box2 label-info" onclick="window.open('http://jyfzzx.scnu.edu.cn', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="http://jyfzzx.scnu.edu.cn">
@@ -2397,7 +2366,44 @@
         </div>
         <br />
 
-        
+        <!-- 学生项目 -->
+        <h4 class="text-gray" id="学生项目" style="cursor:pointer;" onclick="CollapseOrExpand('h4#学生项目+div','h4#学生项目 i.updownTag')">
+            <i class="linecons-tag"></i>学生项目
+            <i class="fa-angle-down updownTag"></i>
+        </h4>
+        <div>
+
+        </div>
+        <br />
+
+        <!-- 使用帮助模态框 -->
+        <div class="modal fade" id="modal-show-about" aria-hidden="true" data-backdrop='static' style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" style="text-align: center">关于本站</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 hint-div">
+                                <p>华师新导航是为师生打造的便利使用的链接管理网站</p>
+                                <p>1.提供华师校内各大学院、机构、服务的官方网址</p>
+                                <p>2.通过链接推荐，还可以一睹学生社团、学生项目的风采</p>
+                                <p>3.在个人主页中还能创建个人专导航，方便管理自己收藏的链接</p>
+                                <p>4.更多更强的功能还在开发中，敬请期待！</p>
+                                <p>5.反馈与联系：20162180151@m.scnu.edu.cn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>  -->
+                        <button type="button" id="showHint-btn" class="btn btn-info" data-dismiss="modal" onclick="">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Main Footer -->
         <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
@@ -2422,6 +2428,72 @@
 
     </div>
 </div>
+
+
+
+
+<script>
+    !function () {
+        function n(n, e, t) {
+            return n.getAttribute(e) || t
+        }
+
+        function e(n) {
+            return document.getElementsByTagName(n)
+        }
+
+        function t() {
+            var t = e("script"), o = t.length, i = t[o - 1];
+            return {
+                l: o,
+                z: n(i, "zIndex", -1),
+                o: n(i, "opacity", .5),
+                c: n(i, "color", "0,0,0"),
+                n: n(i, "count", 99)
+            }
+        }
+
+        function o() {
+            a = m.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                c = m.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        }
+
+        function i() {
+            r.clearRect(0, 0, a, c);
+            var n, e, t, o, m, l;
+            s.forEach(function (i, x) {
+                for (i.x += i.xa, i.y += i.ya, i.xa *= i.x > a || i.x < 0 ? -1 : 1, i.ya *= i.y > c || i.y < 0 ? -1 : 1, r.fillRect(i.x - .5, i.y - .5, 1, 1), e = x + 1; e < u.length; e++) n = u[e],
+                null !== n.x && null !== n.y && (o = i.x - n.x, m = i.y - n.y,
+                    l = o * o + m * m, l < n.max && (n === y && l >= n.max / 2 && (i.x -= .03 * o, i.y -= .03 * m),
+                    t = (n.max - l) / n.max, r.beginPath(), r.lineWidth = t / 2, r.strokeStyle = "rgba(" + d.c + "," + (t + .2) + ")", r.moveTo(i.x, i.y), r.lineTo(n.x, n.y), r.stroke()))
+            }),
+                x(i)
+        }
+
+        var a, c, u, m = document.createElement("canvas"),
+            d = t(), l = "c_n" + d.l, r = m.getContext("2d"),
+            x = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function (n) {
+                    window.setTimeout(n, 1e3 / 45)
+                },
+            w = Math.random, y = {x: null, y: null, max: 2e4};
+        m.id = l, m.style.cssText = "position:fixed;top:0;left:0;z-index:" + d.z + ";opacity:" + d.o, e("body")[0].appendChild(m), o(), window.onresize = o,
+            window.onmousemove = function (n) {
+                n = n || window.event, y.x = n.clientX, y.y = n.clientY
+            },
+            window.onmouseout = function () {
+                y.x = null, y.y = null
+            };
+        for (var s = [], f = 0; d.n > f; f++) {
+            var h = w() * a, g = w() * c, v = 2 * w() - 1, p = 2 * w() - 1;
+            s.push({x: h, y: g, xa: v, ya: p, max: 6e3})
+        }
+        u = s.concat([y]),
+            setTimeout(function () {
+                i()
+            }, 100)
+    }();
+</script>
 
 <!-- 锚点平滑移动 -->
 <script type="text/javascript">
@@ -2508,12 +2580,12 @@
         fadedTip = !fadedTip;
 
         if(fadedTip) hide_tip();
-        else show_tip();       
+        else show_tip();
     })
     function hide_tip(){
         var list = $("div.label-info");
         $.each(list,function(i){
-        var list = $("div.label-info");
+            var list = $("div.label-info");
             $(this).attr("data-original-title","");
         })
     }
@@ -2526,7 +2598,7 @@
         })
 
         $.each(list,function(i){
-            $(this).attr("data-original-title",website_url[idlist[i]]);     
+            $(this).attr("data-original-title",website_url[idlist[i]]);
         })
     }
 
@@ -2633,81 +2705,10 @@
             $(starSelector).removeClass('fa-star');
             $(starSelector).addClass('fa-star-o');
         }
-		//-----------------------------------------------------------------------------------
-		//这里不论是取消收藏、还是增加收藏，都需要再重新写一次cookie保证之后的刷新的时候页面能重新加载收藏的页面
-		//-----------------------------------------------------------------------------------
-		del_cookie();
-		//alert(document.cookie);
-		set_cookie(collections);
-		//alert(document.cookie);
-		
-    }
-	
-	function set_cookie(collects){
-	//将当前的收藏的网站保存到cookie中去
-		var base_name = "collect";
-		for(var i = 0; i < collects.length; i++){
-			document.cookie = base_name + i + "=" + collects[i]+";expires=Sun, 31 Dec 2027 12:00:00 UTC;path=/";
-		}
-	}
-	
-	function get_cookie(can_collect){
-	//根据an_collect获取cookie
-		var an_collect = can_collect + "=";
-		var decodedCookie = decodeURIComponent(document.cookie);
-		var ca = decodedCookie.split(';');
-		for(var i = 0; i < ca.length; i++){
-			var c = ca[i];
-			while(c.charAt(0) == ' '){
-				c = c.substring(1);
-			}
-			if(c.indexOf(an_collect) == 0){
-				return c.substring(an_collect.length, c.length);
-			}
-		}
-		return "";
-	}
-	
-	function get_all_collections(){
-	//获取cookie中全部保存下来的收藏网址
-		var collections = [];
-		var search_index = 0;
-		var search_base_name = "collect";
-		while(true){
-			var an_collect = get_cookie(search_base_name + search_index);
-			if(an_collect == "")break;
-			collections.push(an_collect);
-			search_index ++;
-		}
-		return collections;
-	}
-	
-	function del_cookie(){
-	//删除cookie
-	//这里注意重要的事情：------------------------------------------------------------------
-	//要删除或者修改存在的cookie，需要保证修改或者删除的cookie的键值相同
-	//譬如原本的cookie文件：collect0=学者网;collect1=教务网;collect2=组织部;
-	//如果要修改这个cookie文件，要按如下步骤删除
-	//要点：每个分号;分割了一个cookie，即coolect0=学者网和collect1=教务网是两条cookie
-	//所以，删除的时候，
-	//必须要设置  collect0=学者网;expires='过期的时间';  这样才会删除 collect0=学者网 这条cookie
-	//必须要设置  collect1=教务网;expires='过期的时间';  这样才会删除 collect1=教务网 这条cookie
-	//--------------------------------------------------------------------------------------
-		var base_name = "collect";
-		var all_collections = get_all_collections();
-		for(var i = 0; i < all_collections.length; i++){
-			document.cookie = base_name + i + "=学者网;expires=Sun, 31 Dec 2017 12:00:00 UTC; path=/";
-		}
-	}
-	
-	function check_cookie_exist(){
-	//检查cookie是否存在
-		var an_collect = get_cookie("collect0");
-		if(an_collect == '')return false;
-		else return true;
-	}
 
-	
+    }
+
+
     //申请添加新网站
     function apply_site(){
         //后台操作
@@ -2727,6 +2728,11 @@
 
     })
 
+    function show_about(){
+        $('#modal-show-about').modal('show')
+    }
+
+
 </script>
 <!-- Bottom Scripts -->
 
@@ -2745,66 +2751,6 @@
     })
 </script>
 
-<script type="text/javascript">
-
-    //推荐功能
-    function generate_top_welcome_website(return_web_quantity) {
-        var web_score_list = new Array();
-        for(var i = 0; i <= 103; i++){
-            web_score_list.push(parseInt(Math.random()*100, 10));
-        }
-        var base_score = 20;
-        web_score_list[5] += base_score;
-        web_score_list[71] += base_score;
-        web_score_list[72] += base_score;
-        web_score_list[79] += base_score;
-        web_score_list[84] += base_score;
-        web_score_list[89] += base_score;
-        web_score_list[93] += base_score;
-        web_score_list[94] += base_score;
-
-        var top_3_web = new Array();
-        var max_index = 0;
-        var score = web_score_list[0];
-        for(var j = 0; j <return_web_quantity; j++)
-        {
-            var max_index = 0;
-            var score = web_score_list[0];
-            for (var i = 0; i <= 103; i++) {
-                if (web_score_list[i] > score) {
-                    score = web_score_list[i];
-                    max_index = i;
-                }
-            }
-            top_3_web.push(website_name[max_index]);
-            web_score_list[max_index] = -1;
-        }
-        return top_3_web;
-    }
-
-    function generateWelcomeWebRecommend() {
-        var top_website = generate_top_welcome_website(3);
-        /*
-        *
-        * <div class="item active" style="width: 100%;height: 200px">
-               <a id="item_1_link" href="http://lib.scnu.edu.cn/">
-               <img src="assets/img/test0.jpg" alt="...">
-               <div class="carousel-caption">
-                    <h1 id="item_1_tittle">图书馆</h1>
-               </div>
-               </a>
-          </div>
-        * */
-        document.getElementById("item_1_link").href=website_url[top_website[0]];
-        document.getElementById("item_1_tittle").innerHTML = top_website[0];
-        document.getElementById("item_2_link").href=website_url[top_website[1]];
-        document.getElementById("item_2_tittle").innerHTML = top_website[1];
-        document.getElementById("item_3_link").href=website_url[top_website[2]];
-        document.getElementById("item_3_tittle").innerHTML = top_website[2];
-    }
-
-</script>
-
 <!-- 搜索功能 -->
 <script type="text/javascript">
     function getScrollTop(){
@@ -2815,15 +2761,15 @@
             scrollTop=document.body.scrollTop;
         }
         return scrollTop;
-    }   
+    }
     function jump() {
         var secrch_key = document.getElementById('search_key');
-         window.location.hash = "#";//不加的话，滑动回来再次搜索会失效
-         window.location.hash = "#" + secrch_key.value;
-         var y = getScrollTop();
-         console.log(y);
-         window.scrollTo(0,y-30);
-       }
+        window.location.hash = "#";//不加的话，滑动回来再次搜索会失效
+        window.location.hash = "#" + secrch_key.value;
+        var y = getScrollTop();
+        console.log(y);
+        window.scrollTo(0,y-30);
+    }
 </script>
 
 </body>
