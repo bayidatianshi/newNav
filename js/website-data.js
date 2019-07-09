@@ -255,4 +255,128 @@ var website_english =
 	"华南师大附属幼儿园" : "South China Normal University Affiliated Kindergarten",
 	"校医院" : "School Hospital",
 	"教育审计协会" : "Educational Audit Association"
-}
+};
+
+var website_name = new Array();
+website_name[0] = "党委办公室、校长办公室";
+website_name[1] = "组织部";
+website_name[2] = "纪委监察处" ;
+website_name[3] = "人事处" ;
+website_name[4] = "学生工作部（处）、人民武装部";
+website_name[5] = "教务处";
+website_name[6] = "国际交流合作处";
+website_name[7] = "基建处" ;
+website_name[8] = "保卫处" ;
+website_name[9] = "科技处" ;
+website_name[10] = "招生考试处";
+website_name[11] = "省高校师资培训中心";
+website_name[12] = "研究生院（处）" ;
+website_name[13] = "社科处" ;
+website_name[14] = "财务处" ;
+website_name[15] = "资产管理处" ;
+website_name[16] = "后勤管理处" ;
+website_name[17] = "校团委" ;
+website_name[18] = "校工会";
+website_name[19] = "发展规划处";
+website_name[20] = "社会服务处";
+website_name[21] = "离退休工作办公室";
+website_name[22] = "审计处";
+website_name[23] = "机关党委";
+
+website_name[24] = "文学院";
+website_name[25] = "历史文化学院";
+website_name[26] = "法学院";
+website_name[27] = "政治与行政学院";
+website_name[28] = "马克思主义学院";
+website_name[29] = "经济与管理学院";
+website_name[30] = "教育科学学院";
+website_name[31] = "心理学院";
+website_name[32] = "外国语言文化学院";
+website_name[33] = "公共管理学院";
+website_name[34] = "体育科学学院";
+website_name[35] = "生命科学学院";
+website_name[36] = "教育信息技术学院";
+website_name[37] = "信息光电子科技学院";
+website_name[38] = "网络教育学院";
+website_name[39] = "继续教育学院";
+website_name[40] = "物理与电信工程学院";
+website_name[41] = "数学科学学院";
+website_name[42] = "化学与环境学院";
+website_name[43] = "计算机学院";
+website_name[44] = "地理科学学院";
+website_name[45] = "音乐学院";
+website_name[46] = "美术学院";
+website_name[47] = "基础教育培训与研究院";
+website_name[48] = "旅游管理学院";
+website_name[49] = "国际文化学院";
+website_name[50] = "国际商学院";
+website_name[51] = "软件学院";
+website_name[52] = "城市文化学院";
+website_name[53] = "凤凰国际学院";
+website_name[54] = "职业教育学院";
+website_name[55] = "创业学院";
+website_name[56] = "脑科学与康复医学研究院";
+
+
+	//科研机构
+website_name[57] = "教科所";
+website_name[58] = "激光生命科学实验室";
+website_name[59] = "经济行为科学重点实验室";
+website_name[60] = "植物发育生物工程实验室";
+website_name[61] = "光电子材料与技术研究所";
+website_name[62] = "光子信息技术实验室";
+
+
+
+website_name[63] = "华南市场经济研究中心";
+website_name[64] = "华南先进光电子研究院";
+website_name[65] = "生物光子学研究院";
+website_name[66] = "城市与区域发展研究中心";
+website_name[67] = "运动科学实验教学示范中心";
+website_name[68] = "系统科学与系统管理研究中心";
+website_name[69] = "光及电磁波研究中心";
+website_name[70] = "文化产业与文化地理研究中心";
+
+
+	//辅教机构
+website_name[71] = "网络中心";
+website_name[72] = "图书馆";
+website_name[73] = "档案馆";
+website_name[74] = "分析测试中心";
+website_name[75] = "教师发展中心";
+
+	//学术机构
+website_name[76] = "华南师大学报";
+website_name[77] = "体育学刊";
+website_name[78] = "学者网";
+website_name[79] = "砺儒云课堂";
+
+	//校园应用
+website_name[80] = "华师百科";
+website_name[81] = "华师新陶园论坛";
+website_name[82] = "华师陶园PT";
+website_name[83] = "邮箱服务";
+website_name[84] = "综合服务平台";
+website_name[85] = "移动平台";
+website_name[86] = "校园网自助服务平台";
+website_name[87] = "校园视频网";
+website_name[88] = "锐捷客户端下载";
+
+	//学生服务
+website_name[89] = "教务管理系统";
+website_name[90] = "教学信息查询系统";
+website_name[91] = "学生工作信息管理系统";
+website_name[92] = "课程中心";
+website_name[93] = "教务处";
+website_name[94] = "图书馆";
+website_name[95] = "勤工助学管理中心";
+website_name[96] = "学生就业指导中心";
+website_name[97] = "心理咨询研究中心";
+website_name[98] = "学生会";
+
+	//其他
+website_name[99] = "教育发展中心";
+website_name[100] = "电子化政府采购系统" ;
+website_name[101] = "华南师大附属幼儿园" ;
+website_name[102] = "校医院";
+website_name[103] = "教育审计协会";
